@@ -8,18 +8,19 @@ export function Footer() {
           <Wordmark size="md" />
           <div className="max-w-md">
             <p className="text-sm leading-7 text-white/70">
-              Provinear helps people find nearby products and services faster,
-              while giving local vendors a better path to discovery and trust.
+              Provinear helps you find trusted nearby products and services
+              faster, without depending on scattered contacts, group chats, or
+              guesswork.
             </p>
             <div className="mt-5 flex flex-wrap gap-3 text-sm font-medium text-white/70">
-              <a href="/#how-it-works" className="hover:text-white">
-                How it works
+              <a href="/#categories" className="hover:text-white">
+                Browse
               </a>
               <a href="/#board" className="hover:text-white">
-                Request board
+                Request Board
               </a>
               <a href="/#sellers" className="hover:text-white">
-                Vendors
+                For Sellers
               </a>
               <a href="/#waitlist" className="hover:text-white">
                 Waitlist
