@@ -4,8 +4,8 @@ import { Link } from "@tanstack/react-router";
 
 export function Nav() {
   return (
-    <header className="absolute top-0 left-0 right-0 z-50">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10 py-8 flex items-center justify-between">
+    <header className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-3rem)] max-w-7xl">
+      <div className="bg-white/90 backdrop-blur-md border border-border/50 rounded-full px-6 lg:px-8 py-3.5 flex items-center justify-between shadow-soft">
         <Link
           to="/"
           className="group flex items-center transition-opacity hover:opacity-90"
@@ -13,7 +13,7 @@ export function Nav() {
           <Wordmark size="md" />
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-10 text-sm font-semibold text-muted-foreground">
+        <nav className="hidden lg:flex items-center gap-8 text-sm font-semibold text-muted-foreground">
           <Link to="/" className="hover:text-primary transition-colors">
             Home
           </Link>
@@ -34,16 +34,16 @@ export function Nav() {
           </a>
         </nav>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <Link
             to="/search"
             search={{ q: "" }}
-            className="hidden sm:flex items-center gap-2 rounded-2xl border border-border/60 bg-white/50 backdrop-blur px-4 py-2 text-xs font-bold text-ink hover:bg-white transition-all shadow-soft"
+            className="hidden sm:flex items-center gap-2 rounded-full border border-border/60 bg-surface px-4 py-2.5 text-xs font-bold text-ink hover:bg-white hover:border-primary/20 transition-all"
           >
-            <Search className="h-3.5 w-3.5 text-primary" />
+            <Search className="h-4 w-4 text-primary" />
             Find nearby
           </Link>
-          <button className="px-5 py-2.5 rounded-2xl bg-primary text-primary-foreground text-xs font-bold shadow-soft hover:shadow-elevated transition-all">
+          <button className="px-6 py-2.5 rounded-full bg-primary text-primary-foreground text-xs font-bold shadow-soft hover:shadow-elevated transition-all active:scale-95">
             Join Provinear
           </button>
         </div>

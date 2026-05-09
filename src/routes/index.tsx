@@ -35,6 +35,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [activeCategory, setActiveCategory] = useState(0);
   const navigate = useNavigate();
 
   const handleSearch = (e: React.FormEvent) => {
@@ -82,20 +83,20 @@ function Index() {
               onSubmit={handleSearch}
               className="mt-10 max-w-2xl group animate-in fade-in slide-in-from-bottom-10 duration-1000"
             >
-              <div className="relative flex items-center p-2 rounded-[2.5rem] bg-white border border-border/60 shadow-[0_8px_30px_oklch(0.28_0.09_295_/_0.06)] focus-within:ring-4 focus-within:ring-primary/10 transition-all">
+              <div className="relative flex items-center p-3 rounded-full bg-white border border-border/60 shadow-elevated focus-within:ring-4 focus-within:ring-primary/20 transition-all">
                 <div className="pl-6 pr-4 text-muted-foreground group-focus-within:text-primary transition-colors">
-                  <Search className="h-6 w-6" />
+                  <Search className="h-8 w-8" />
                 </div>
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="What are you looking for today?"
-                  className="w-full h-16 bg-transparent focus:outline-none text-xl placeholder:text-muted-foreground/60"
+                  className="w-full h-16 bg-transparent focus:outline-none text-2xl placeholder:text-muted-foreground/60"
                 />
                 <button
                   type="submit"
-                  className="shrink-0 px-8 h-16 rounded-[2rem] bg-primary text-primary-foreground font-bold hover:bg-ink transition-all shadow-lg active:scale-95 text-lg"
+                  className="shrink-0 px-10 h-16 rounded-full bg-primary text-primary-foreground font-bold hover:bg-ink transition-all shadow-lg active:scale-95 text-xl"
                 >
                   Find it near me
                 </button>
@@ -232,7 +233,7 @@ function Index() {
             </button>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="flex flex-col lg:flex-row gap-4 h-[600px] w-full">
             {[
               {
                 n: "The Baker's Corner",
@@ -254,23 +255,36 @@ function Index() {
                 img: "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?auto=format&fit=crop&w=800&q=80",
                 d: "Tailored For You",
               },
-            ].map((cat) => (
+            ].map((cat, idx) => (
               <div
                 key={cat.n}
-                className="group cursor-pointer relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-soft hover:shadow-elevated transition-all duration-500 hover:-translate-y-2"
+                onMouseEnter={() => setActiveCategory(idx)}
+                className={`group relative overflow-hidden rounded-[2rem] lg:rounded-[3rem] transition-all duration-700 ease-in-out cursor-pointer shadow-soft hover:shadow-elevated ${
+                  activeCategory === idx
+                    ? "flex-[4] lg:flex-[3]"
+                    : "flex-1 hover:flex-[1.2]"
+                }`}
               >
                 <img
                   src={cat.img}
                   alt={cat.n}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/20 to-transparent opacity-90" />
-                <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-[2rem]" />
+                <div className={`absolute inset-0 bg-gradient-to-t transition-opacity duration-700 ${
+                  activeCategory === idx 
+                    ? "from-ink/90 via-ink/20 to-transparent opacity-90" 
+                    : "from-ink/90 via-ink/50 to-ink/20 opacity-80"
+                }`} />
+                <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-[2rem] lg:rounded-[3rem]" />
                 <div className="absolute bottom-8 left-8 right-8">
-                  <p className="text-primary-soft text-xs font-bold tracking-widest uppercase mb-2 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                  <p className={`text-primary-soft text-xs font-bold tracking-widest uppercase mb-2 transition-all duration-500 delay-100 ${
+                    activeCategory === idx ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0 lg:hidden"
+                  }`}>
                     {cat.d}
                   </p>
-                  <h3 className="text-white font-display text-3xl leading-tight">
+                  <h3 className={`text-white font-display leading-tight transition-all duration-500 ${
+                    activeCategory === idx ? "text-4xl lg:text-5xl" : "text-2xl lg:rotate-[-90deg] lg:origin-bottom-left lg:absolute lg:bottom-12 lg:left-12 lg:whitespace-nowrap"
+                  }`}>
                     {cat.n}
                   </h3>
                 </div>
@@ -329,41 +343,41 @@ function Index() {
             ].map((prod, i) => (
               <div
                 key={i}
-                className="group bg-white rounded-[2rem] p-3 border border-border/40 shadow-soft hover:shadow-elevated transition-all duration-500 hover:border-primary/20"
+                className="group bg-surface rounded-[2.5rem] p-4 border border-border/60 shadow-soft hover:shadow-elevated transition-all duration-500 hover:border-primary/20"
               >
-                <div className="relative aspect-square rounded-[1.5rem] overflow-hidden mb-5">
+                <div className="relative aspect-square rounded-[2rem] overflow-hidden mb-5">
                   <img
                     src={prod.img}
                     alt={prod.n}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute top-3 right-3 h-10 w-10 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-ink hover:text-primary transition-colors shadow-sm cursor-pointer hover:scale-110 active:scale-95">
-                    <Heart className="h-5 w-5" />
+                  <div className="absolute top-4 right-4 h-12 w-12 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-ink hover:text-primary transition-colors shadow-sm cursor-pointer hover:scale-110 active:scale-95">
+                    <Heart className="h-6 w-6" />
                   </div>
-                  <div className="absolute bottom-3 left-3 bg-ink/80 backdrop-blur-md text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg flex items-center gap-1.5">
-                    <MapPin className="h-3 w-3" /> {prod.d}
+                  <div className="absolute bottom-4 left-4 bg-ink/90 backdrop-blur-md text-white px-4 py-2 rounded-full text-xs font-bold shadow-lg flex items-center gap-2">
+                    <MapPin className="h-4 w-4" /> {prod.d}
                   </div>
                 </div>
 
                 <div className="px-3 pb-3">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-[10px] text-muted-foreground uppercase tracking-widest font-extrabold truncate pr-2">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-[11px] text-muted-foreground uppercase tracking-widest font-extrabold truncate pr-2">
                       {prod.s}
                     </span>
-                    <div className="flex items-center gap-1 text-xs font-bold text-ink shrink-0 bg-warm/50 px-2 py-0.5 rounded-full">
-                      <Star className="h-3 w-3 fill-primary text-primary" />
+                    <div className="flex items-center gap-1 text-xs font-bold text-ink shrink-0 bg-warm/60 px-3 py-1 rounded-full">
+                      <Star className="h-3.5 w-3.5 fill-primary text-primary" />
                       {prod.r}
                     </div>
                   </div>
-                  <h3 className="text-xl font-display text-ink leading-tight mb-4 group-hover:text-primary transition-colors line-clamp-1">
+                  <h3 className="text-2xl font-display text-ink leading-tight mb-5 group-hover:text-primary transition-colors line-clamp-1">
                     {prod.n}
                   </h3>
                   <div className="flex items-center justify-between mt-auto">
-                    <span className="text-2xl font-display text-ink">
+                    <span className="text-3xl font-display text-ink">
                       {prod.p}
                     </span>
-                    <button className="h-10 w-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all active:scale-95">
-                      <ShoppingCart className="h-4 w-4" />
+                    <button className="h-12 w-12 rounded-full bg-primary/10 text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all active:scale-95">
+                      <ShoppingCart className="h-5 w-5" />
                     </button>
                   </div>
                 </div>
@@ -426,29 +440,29 @@ function Index() {
             ].map((req, i) => (
               <div
                 key={i}
-                className="group bg-white/5 border border-white/10 backdrop-blur-md p-6 lg:p-8 rounded-[2rem] flex items-start gap-6 transition-all hover:bg-white/10 hover:border-white/20 hover:translate-x-4 duration-500 shadow-xl"
+                className="group bg-white/5 border border-white/10 backdrop-blur-md p-6 lg:p-8 rounded-[3rem] flex items-start gap-6 transition-all hover:bg-white/10 hover:border-white/20 hover:-translate-y-2 duration-500 shadow-xl"
               >
-                <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center text-white font-display text-2xl shrink-0 shadow-inner">
+                <div className="h-16 w-16 rounded-[2rem] bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center text-white font-display text-3xl shrink-0 shadow-inner">
                   {req.u[0]}
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-3">
-                      <span className="font-bold text-lg text-white/90">
+                      <span className="font-bold text-xl text-white/90">
                         {req.u}
                       </span>
-                      <span className="text-[10px] text-white/50 flex items-center gap-1">
-                        <Clock className="h-3 w-3" /> {req.d}
+                      <span className="text-xs text-white/50 flex items-center gap-1">
+                        <Clock className="h-3.5 w-3.5" /> {req.d}
                       </span>
                     </div>
                     <span className="text-[10px] text-primary-soft uppercase font-bold tracking-widest bg-primary/20 border border-primary/30 px-3 py-1 rounded-full">
                       {req.o}
                     </span>
                   </div>
-                  <p className="text-xl lg:text-2xl text-white font-display leading-tight">
+                  <p className="text-2xl lg:text-3xl text-white font-display leading-tight mb-6">
                     "{req.t}"
                   </p>
-                  <button className="mt-5 flex items-center gap-2 text-sm font-bold text-primary-soft group-hover:gap-3 transition-all opacity-80 group-hover:opacity-100">
+                  <button className="flex items-center gap-2 text-sm font-bold text-primary-soft group-hover:gap-3 transition-all opacity-80 group-hover:opacity-100">
                     Make an offer <ArrowRight className="h-4 w-4" />
                   </button>
                 </div>

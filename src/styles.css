@@ -45,7 +45,7 @@
 }
 
 :root {
-  --radius: 1rem;
+  --radius: 1.5rem;
 
   /* Deep plum primary #331C54 */
   --primary: oklch(0.28 0.09 295);
@@ -53,11 +53,11 @@
   --primary-soft: oklch(0.92 0.04 295);
   --primary-glow: oklch(0.55 0.18 300);
 
-  --background: oklch(0.985 0.005 80);
+  --background: oklch(0.985 0.015 90);
   --foreground: oklch(0.22 0.04 290);
   --ink: oklch(0.18 0.03 290);
 
-  --surface: oklch(0.97 0.008 80);
+  --surface: oklch(0.99 0.005 90);
   --surface-elevated: oklch(1 0 0);
   --warm: oklch(0.95 0.02 70);
 
