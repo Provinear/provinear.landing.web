@@ -27,6 +27,10 @@
   --color-primary-foreground: var(--primary-foreground);
   --color-primary-soft: var(--primary-soft);
   --color-primary-glow: var(--primary-glow);
+  --color-brand-success: var(--brand-success);
+  --color-brand-success-soft: var(--brand-success-soft);
+  --color-brand-ink-strong: var(--brand-ink-strong);
+  --color-brand-surface-warm: var(--brand-surface-warm);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
@@ -51,7 +55,11 @@
   --primary: oklch(0.28 0.09 295);
   --primary-foreground: oklch(0.98 0.005 300);
   --primary-soft: oklch(0.92 0.04 295);
-  --primary-glow: oklch(0.55 0.18 300);
+  --primary-glow: oklch(0.63 0.13 300);
+  --brand-success: oklch(0.5 0.09 165);
+  --brand-success-soft: oklch(0.93 0.035 165);
+  --brand-ink-strong: oklch(0.18 0.03 290);
+  --brand-surface-warm: oklch(0.975 0.01 75);
 
   --background: oklch(0.985 0.005 80);
   --foreground: oklch(0.22 0.04 290);
@@ -83,22 +91,22 @@
   --gradient-hero:
     radial-gradient(
       ellipse 80% 60% at 70% 20%,
-      oklch(0.88 0.08 300 / 0.45),
+      oklch(0.88 0.055 300 / 0.42),
       transparent 60%
     ),
     radial-gradient(
       ellipse 70% 50% at 10% 80%,
-      oklch(0.92 0.05 60 / 0.5),
+      oklch(0.95 0.02 70 / 0.6),
       transparent 60%
     );
   --gradient-primary: linear-gradient(
     135deg,
     oklch(0.28 0.09 295),
-    oklch(0.4 0.14 305)
+    oklch(0.5 0.12 305)
   );
   --gradient-mesh:
     radial-gradient(at 20% 30%, oklch(0.92 0.04 295 / 0.6), transparent 50%),
-    radial-gradient(at 80% 70%, oklch(0.93 0.05 50 / 0.5), transparent 50%);
+    radial-gradient(at 80% 70%, oklch(0.95 0.025 70 / 0.45), transparent 50%);
 
   --shadow-soft:
     0 1px 2px oklch(0.28 0.09 295 / 0.04),
@@ -115,6 +123,10 @@
   --primary-foreground: oklch(0.16 0.04 290);
   --primary-soft: oklch(0.32 0.08 295);
   --primary-glow: oklch(0.7 0.18 305);
+  --brand-success: oklch(0.72 0.11 165);
+  --brand-success-soft: oklch(0.28 0.04 165);
+  --brand-ink-strong: oklch(0.98 0.01 290);
+  --brand-surface-warm: oklch(0.2 0.03 290);
 
   --background: oklch(0.16 0.025 290);
   --foreground: oklch(0.95 0.015 290);
