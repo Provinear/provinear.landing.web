@@ -2,26 +2,32 @@ import { Wordmark } from "@/components/site/Wordmark";
 
 export function Footer() {
   return (
-    <footer className="relative border-t border-border/60 mt-24 overflow-hidden">
-      {/* Oversized brand watermark */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 -bottom-10 md:-bottom-16 select-none"
-      >
-        <div className="font-display text-[22vw] md:text-[16vw] leading-none tracking-tight text-center bg-gradient-to-b from-primary/10 to-transparent bg-clip-text text-transparent">
-          Provinear
-        </div>
-      </div>
-
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-10 pt-16 pb-32 md:pb-40">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+    <footer className="border-t border-black/5 bg-[#0b1120] text-white">
+      <div className="mx-auto max-w-7xl px-6 py-14 lg:px-10">
+        <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
           <Wordmark size="md" />
-          <p className="text-sm text-muted-foreground max-w-md">
-            A localized commerce ecosystem. Building infrastructure for
-            discovery between people and the providers around them.
-          </p>
-          <p className="text-xs text-muted-foreground/80">
-            © {new Date().getFullYear()} Provinear. Coming soon.
+          <div className="max-w-md">
+            <p className="text-sm leading-7 text-white/70">
+              Provinear helps people find nearby products and services faster,
+              while giving local vendors a better path to discovery and trust.
+            </p>
+            <div className="mt-5 flex flex-wrap gap-3 text-sm font-medium text-white/70">
+              <a href="/#how-it-works" className="hover:text-white">
+                How it works
+              </a>
+              <a href="/#board" className="hover:text-white">
+                Request board
+              </a>
+              <a href="/#sellers" className="hover:text-white">
+                Vendors
+              </a>
+              <a href="/#waitlist" className="hover:text-white">
+                Waitlist
+              </a>
+            </div>
+          </div>
+          <p className="text-xs text-white/45">
+            © {new Date().getFullYear()} Provinear. Early access landing page.
           </p>
         </div>
       </div>

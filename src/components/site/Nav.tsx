@@ -1,11 +1,11 @@
 import { Wordmark } from "@/components/site/Wordmark";
-import { Search, MapPin } from "lucide-react";
+import { Search } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
 export function Nav() {
   return (
-    <header className="absolute top-0 left-0 right-0 z-50">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10 py-8 flex items-center justify-between">
+    <header className="sticky top-0 z-50 border-b border-black/5 bg-[#f8f4ec]/88 backdrop-blur-xl">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-10">
         <Link
           to="/"
           className="group flex items-center transition-opacity hover:opacity-90"
@@ -13,23 +13,29 @@ export function Nav() {
           <Wordmark size="md" />
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-10 text-sm font-semibold text-muted-foreground">
-          <Link to="/" className="hover:text-primary transition-colors">
-            Home
-          </Link>
+        <nav className="hidden items-center gap-8 text-sm font-semibold text-[#566173] lg:flex">
           <a
-            href="#categories"
-            className="hover:text-primary transition-colors"
+            href="/#how-it-works"
+            className="transition-colors hover:text-[#0b1120]"
           >
-            Categories
+            How it works
           </a>
-          <a href="#nearby" className="hover:text-primary transition-colors">
+          <a
+            href="/#categories"
+            className="transition-colors hover:text-[#0b1120]"
+          >
+            Use cases
+          </a>
+          <a href="/#nearby" className="transition-colors hover:text-[#0b1120]">
             Nearby
           </a>
-          <a href="#board" className="hover:text-primary transition-colors">
+          <a href="/#board" className="transition-colors hover:text-[#0b1120]">
             Request Board
           </a>
-          <a href="#sellers" className="hover:text-primary transition-colors">
+          <a
+            href="/#sellers"
+            className="transition-colors hover:text-[#0b1120]"
+          >
             For Sellers
           </a>
         </nav>
@@ -38,14 +44,17 @@ export function Nav() {
           <Link
             to="/search"
             search={{ q: "" }}
-            className="hidden sm:flex items-center gap-2 rounded-2xl border border-border/60 bg-white/50 backdrop-blur px-4 py-2 text-xs font-bold text-ink hover:bg-white transition-all shadow-soft"
+            className="hidden items-center gap-2 rounded-full border border-[#0b1120]/10 bg-white px-4 py-2 text-xs font-semibold text-[#0b1120] shadow-[0_10px_30px_rgba(11,17,32,0.06)] transition-all hover:-translate-y-0.5 sm:flex"
           >
-            <Search className="h-3.5 w-3.5 text-primary" />
+            <Search className="h-3.5 w-3.5 text-[#f28b34]" />
             Find nearby
           </Link>
-          <button className="px-5 py-2.5 rounded-2xl bg-primary text-primary-foreground text-xs font-bold shadow-soft hover:shadow-elevated transition-all">
-            Join Provinear
-          </button>
+          <a
+            href="/#waitlist"
+            className="inline-flex rounded-full bg-[#0b1120] px-5 py-2.5 text-xs font-semibold text-white transition-transform hover:-translate-y-0.5"
+          >
+            Join waitlist
+          </a>
         </div>
       </div>
     </header>

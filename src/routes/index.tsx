@@ -1,557 +1,613 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Nav } from "@/components/site/Nav";
-import { Footer } from "@/components/site/Footer";
-import { MapVisual } from "@/components/site/MapVisual";
 import { useState } from "react";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import {
-  Search,
-  MapPin,
-  Sparkles,
   ArrowRight,
-  Star,
-  ShieldCheck,
-  Zap,
-  Heart,
-  ShoppingCart,
   CheckCircle2,
-  Users,
-  Clock,
+  Clock3,
+  MapPin,
   MessageCircle,
+  Search,
+  ShieldCheck,
+  Sparkles,
+  Store,
+  Users,
 } from "lucide-react";
+import { Footer } from "@/components/site/Footer";
+import { Nav } from "@/components/site/Nav";
 
 export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Provinear | Everything you need, right around the corner." },
+      { title: "Provinear | Find nearby products and services faster." },
       {
         name: "description",
         content:
-          "Stop searching far. Start discovering near. Provinear is the easiest way to buy and sell within your neighborhood.",
+          "Provinear helps you discover trusted products and service providers around you, or post a request when you cannot find what you need nearby.",
       },
     ],
   }),
 });
 
+const useCases = [
+  {
+    title: "Repairs and home help",
+    description:
+      "Find plumbers, electricians, technicians, and cleaners close to you without asking around.",
+  },
+  {
+    title: "Food and groceries",
+    description:
+      "Discover nearby bakers, stores, and food vendors for quick daily needs.",
+  },
+  {
+    title: "Fashion and beauty",
+    description:
+      "Browse local tailors, stylists, makeup artists, and beauty suppliers in your area.",
+  },
+  {
+    title: "Special requests",
+    description:
+      "Need something uncommon? Post a request and let nearby vendors respond.",
+  },
+];
+
+const nearbyResults = [
+  {
+    title: "Emergency plumber",
+    vendor: "FlowFix Services",
+    distance: "0.8 km away",
+    eta: "Replies in 8 mins",
+    badge: "Top rated",
+  },
+  {
+    title: "Birthday cake for 20",
+    vendor: "Bodija Oven Studio",
+    distance: "1.4 km away",
+    eta: "Pickup today",
+    badge: "Popular nearby",
+  },
+  {
+    title: "Phone screen repair",
+    vendor: "Swift Gadget Care",
+    distance: "2.1 km away",
+    eta: "Same-day service",
+    badge: "Verified vendor",
+  },
+  {
+    title: "Fresh groceries bundle",
+    vendor: "Corner Market Hub",
+    distance: "1.1 km away",
+    eta: "Ready in 25 mins",
+    badge: "Fast moving",
+  },
+];
+
+const requestBoard = [
+  {
+    name: "Tunde",
+    request: "Need a welder for a gate repair in Akobo this evening.",
+    responses: "9 offers",
+    time: "11 minutes ago",
+  },
+  {
+    name: "Amara",
+    request: "Looking for 30 souvenir packs for a church event this weekend.",
+    responses: "14 offers",
+    time: "32 minutes ago",
+  },
+  {
+    name: "Sade",
+    request:
+      "Who can supply a small generator around Mokola by tomorrow morning?",
+    responses: "6 offers",
+    time: "1 hour ago",
+  },
+];
+
+const sellerPoints = [
+  "Set up your shop profile and contact details quickly.",
+  "Get discovered by buyers searching within your area.",
+  "Respond to direct requests when buyers cannot find what they need.",
+  "Build trust with ratings, escrow, and visible response history.",
+];
+
 function Index() {
-  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [waitlistEmail, setWaitlistEmail] = useState("");
+  const [waitlistJoined, setWaitlistJoined] = useState(false);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    if (searchQuery.trim()) {
-      navigate({ to: "/search", search: { q: searchQuery } });
-    }
+    navigate({ to: "/search", search: { q: searchQuery.trim() } });
+  };
+
+  const handleWaitlistSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!waitlistEmail.trim()) return;
+    setWaitlistJoined(true);
+    setWaitlistEmail("");
   };
 
   return (
-    <div className="relative min-h-screen bg-[#FDFCFB] text-foreground overflow-x-hidden selection:bg-primary/20 font-sans">
+    <div className="min-h-screen overflow-x-hidden bg-[#f8f4ec] text-foreground selection:bg-[#f28b34]/20">
       <Nav />
 
-      {/* HERO SECTION: THE HOOK */}
-      <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
-        {/* Abstract Premium Background */}
-        <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/3 w-[1000px] h-[1000px] bg-[radial-gradient(ellipse_at_center,var(--primary-soft)_0%,transparent_70%)] opacity-60 pointer-events-none mix-blend-multiply" />
-        <div className="absolute top-40 left-0 -translate-x-1/2 w-[800px] h-[800px] bg-[radial-gradient(ellipse_at_center,oklch(0.95_0.02_70)_0%,transparent_70%)] opacity-50 pointer-events-none mix-blend-multiply" />
+      <main>
+        <section className="relative overflow-hidden border-b border-black/5 bg-[#f8f4ec] pt-28 pb-18 lg:pt-36 lg:pb-24">
+          <div
+            aria-hidden
+            className="absolute inset-x-0 top-0 h-24 bg-[linear-gradient(180deg,rgba(11,17,32,0.04),transparent)]"
+          />
+          <div
+            aria-hidden
+            className="absolute top-10 right-[-8rem] h-72 w-72 rounded-full bg-[#f28b34]/12 blur-3xl"
+          />
+          <div
+            aria-hidden
+            className="absolute bottom-0 left-[-6rem] h-64 w-64 rounded-full bg-[#1f7a5a]/10 blur-3xl"
+          />
 
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-10 grid lg:grid-cols-12 gap-16 items-center">
-          <div className="lg:col-span-7 z-10">
-            <div className="inline-flex items-center gap-2 rounded-full bg-white border border-primary/10 px-4 py-2 text-xs font-bold text-primary mb-8 shadow-sm animate-in fade-in slide-in-from-bottom-4 duration-700">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-              </span>
-              The neighborhood marketplace is live
-            </div>
+          <div className="relative mx-auto grid max-w-7xl gap-14 px-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:px-10">
+            <div className="max-w-3xl">
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#0b1120]/10 bg-white px-4 py-2 text-xs font-semibold text-[#0b1120] shadow-[0_10px_30px_rgba(11,17,32,0.06)]">
+                <Sparkles className="h-3.5 w-3.5 text-[#f28b34]" />
+                Local search, vendor trust, and requests in one place
+              </div>
 
-            {/* Headline < 12 words, Formula: Help [audience] achieve [outcome] without [pain point] */}
-            <h1 className="font-display text-5xl md:text-7xl lg:text-[5rem] leading-[1.05] text-ink tracking-tight animate-in fade-in slide-in-from-bottom-6 duration-1000">
-              Get exactly what you need locally, <br />
-              <span className="text-primary italic">
-                without the shipping wait.
-              </span>
-            </h1>
+              <h1 className="mt-6 max-w-4xl text-5xl font-black leading-[0.95] tracking-[-0.04em] text-[#0b1120] md:text-7xl lg:text-[5.25rem]">
+                Find what you need nearby without chasing referrals.
+              </h1>
 
-            <p className="mt-6 text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-2xl animate-in fade-in slide-in-from-bottom-8 duration-1000">
-              Skip the endless searching and word-of-mouth. Provinear instantly
-              connects you with the best products and services hidden right in
-              your area.
-            </p>
+              <p className="mt-6 max-w-2xl text-lg leading-8 text-[#445065] md:text-xl">
+                Provinear helps you discover trusted products and service
+                providers around you, compare options quickly, and post a
+                request when nothing close shows up.
+              </p>
 
-            <form
-              onSubmit={handleSearch}
-              className="mt-10 max-w-2xl group animate-in fade-in slide-in-from-bottom-10 duration-1000"
-            >
-              <div className="relative flex items-center p-2 rounded-[2.5rem] bg-white border border-border/60 shadow-[0_8px_30px_oklch(0.28_0.09_295_/_0.06)] focus-within:ring-4 focus-within:ring-primary/10 transition-all">
-                <div className="pl-6 pr-4 text-muted-foreground group-focus-within:text-primary transition-colors">
-                  <Search className="h-6 w-6" />
-                </div>
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="What are you looking for today?"
-                  className="w-full h-16 bg-transparent focus:outline-none text-xl placeholder:text-muted-foreground/60"
-                />
-                <button
-                  type="submit"
-                  className="shrink-0 px-8 h-16 rounded-[2rem] bg-primary text-primary-foreground font-bold hover:bg-ink transition-all shadow-lg active:scale-95 text-lg"
+              <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+                <a
+                  href="#waitlist"
+                  className="inline-flex h-14 items-center justify-center rounded-full bg-[#0b1120] px-8 text-base font-semibold text-white transition-transform hover:-translate-y-0.5"
                 >
-                  Find it near me
+                  Join waitlist
+                </a>
+                <button
+                  type="button"
+                  onClick={() => navigate({ to: "/search", search: { q: "" } })}
+                  className="inline-flex h-14 items-center justify-center rounded-full border border-[#0b1120]/12 bg-white px-8 text-base font-semibold text-[#0b1120] shadow-[0_10px_30px_rgba(11,17,32,0.06)] transition-transform hover:-translate-y-0.5"
+                >
+                  Explore nearby
                 </button>
               </div>
 
-              {/* Trust Indicators right below search */}
-              <div className="mt-6 flex flex-wrap items-center gap-4 text-sm font-medium pl-4">
-                <div className="flex -space-x-2">
-                  {[
-                    "https://i.pravatar.cc/100?img=1",
-                    "https://i.pravatar.cc/100?img=2",
-                    "https://i.pravatar.cc/100?img=3",
-                    "https://i.pravatar.cc/100?img=4",
-                  ].map((img, i) => (
-                    <img
-                      key={i}
-                      src={img}
-                      alt="User"
-                      className="w-8 h-8 rounded-full border-2 border-[#FDFCFB]"
-                    />
-                  ))}
+              <div className="mt-10 grid gap-4 sm:grid-cols-3">
+                {[
+                  "Search by need and location",
+                  "See trusted nearby vendors",
+                  "Post requests when supply is missing",
+                ].map((item) => (
+                  <div
+                    key={item}
+                    className="rounded-2xl border border-[#0b1120]/8 bg-white px-4 py-4 text-sm font-medium text-[#445065] shadow-[0_10px_30px_rgba(11,17,32,0.04)]"
+                  >
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="relative">
+              <div className="rounded-[2rem] border border-[#0b1120]/8 bg-white p-4 shadow-[0_24px_80px_rgba(11,17,32,0.1)] lg:p-6">
+                <div className="rounded-[1.5rem] bg-[#0b1120] p-5 text-white">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/55">
+                        Nearby right now
+                      </p>
+                      <h2 className="mt-2 text-2xl font-bold">
+                        Search your area faster
+                      </h2>
+                    </div>
+                    <div className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold">
+                      Ibadan
+                    </div>
+                  </div>
+
+                  <form
+                    onSubmit={handleSearch}
+                    className="mt-5 rounded-[1.25rem] bg-white p-2 text-[#0b1120]"
+                  >
+                    <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+                      <div className="flex min-w-0 flex-1 items-center gap-3 px-4">
+                        <Search className="h-5 w-5 text-[#f28b34]" />
+                        <input
+                          type="text"
+                          value={searchQuery}
+                          onChange={(e) => setSearchQuery(e.target.value)}
+                          placeholder="Search plumbers, bakers, tailors, groceries..."
+                          className="h-12 w-full bg-transparent text-sm outline-none placeholder:text-[#708096]"
+                        />
+                      </div>
+                      <button
+                        type="submit"
+                        className="inline-flex h-12 items-center justify-center rounded-full bg-[#f28b34] px-5 text-sm font-semibold text-[#0b1120]"
+                      >
+                        Search
+                      </button>
+                    </div>
+                  </form>
+
+                  <div className="mt-5 grid gap-3">
+                    {nearbyResults.slice(0, 3).map((item) => (
+                      <div
+                        key={item.title}
+                        className="rounded-[1.25rem] border border-white/10 bg-white/6 p-4"
+                      >
+                        <div className="flex items-start justify-between gap-3">
+                          <div>
+                            <p className="text-sm font-semibold text-white">
+                              {item.title}
+                            </p>
+                            <p className="mt-1 text-sm text-white/65">
+                              {item.vendor}
+                            </p>
+                          </div>
+                          <span className="rounded-full bg-[#1f7a5a]/18 px-3 py-1 text-[11px] font-semibold text-[#9ce3c7]">
+                            {item.badge}
+                          </span>
+                        </div>
+                        <div className="mt-4 flex flex-wrap gap-2 text-xs text-white/65">
+                          <span className="rounded-full bg-white/8 px-3 py-1">
+                            {item.distance}
+                          </span>
+                          <span className="rounded-full bg-white/8 px-3 py-1">
+                            {item.eta}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <div className="text-muted-foreground">
-                  Joined by <span className="text-ink font-bold">10,000+</span>{" "}
-                  locals discovering what they need.
+
+                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                  <div className="rounded-[1.5rem] border border-[#0b1120]/8 bg-[#fff7ef] p-4">
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#9b5f1f]">
+                      Buyer confidence
+                    </p>
+                    <p className="mt-2 text-lg font-semibold text-[#0b1120]">
+                      Escrow and ratings help buyers compare safer options.
+                    </p>
+                  </div>
+                  <div className="rounded-[1.5rem] border border-[#0b1120]/8 bg-[#eef8f3] p-4">
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#1f7a5a]">
+                      Vendor reach
+                    </p>
+                    <p className="mt-2 text-lg font-semibold text-[#0b1120]">
+                      Local sellers become discoverable beyond word of mouth.
+                    </p>
+                  </div>
                 </div>
               </div>
-            </form>
+            </div>
           </div>
+        </section>
 
-          <div className="lg:col-span-5 relative hidden lg:block">
-            <div className="relative z-10 scale-110 drop-shadow-2xl">
-              <MapVisual />
-            </div>
-            {/* Interactive Floating Badges */}
-            <div className="absolute top-10 -left-10 z-20 bg-white/80 backdrop-blur-xl border border-white rounded-3xl p-4 shadow-elevated animate-float-y">
-              <div className="flex items-center gap-3">
-                <div className="h-12 w-12 rounded-full bg-green-500/10 flex items-center justify-center text-green-600">
-                  <ShieldCheck className="h-6 w-6" />
-                </div>
-                <div>
-                  <div className="text-sm font-bold text-ink">
-                    Escrow Protected
-                  </div>
-                  <div className="text-xs text-muted-foreground font-medium">
-                    Funds held securely
-                  </div>
-                </div>
+        <section
+          id="how-it-works"
+          className="border-b border-black/5 bg-white py-16"
+        >
+          <div className="mx-auto max-w-7xl px-6 lg:px-10">
+            <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+              <div className="max-w-2xl">
+                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#f28b34]">
+                  How it works
+                </p>
+                <h2 className="mt-3 text-3xl font-black tracking-[-0.03em] text-[#0b1120] md:text-5xl">
+                  Start in three quick steps.
+                </h2>
               </div>
-            </div>
-            <div
-              className="absolute bottom-20 -right-8 z-20 bg-white/80 backdrop-blur-xl border border-white rounded-3xl p-4 shadow-elevated animate-float-y"
-              style={{ animationDelay: "2s" }}
-            >
-              <div className="flex items-center gap-3">
-                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-                  <Zap className="h-6 w-6" />
-                </div>
-                <div>
-                  <div className="text-sm font-bold text-ink">
-                    Instant Delivery
-                  </div>
-                  <div className="text-xs text-muted-foreground font-medium">
-                    Within 30 minutes
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* EMOTIONAL BENEFITS STRIP */}
-      <section className="py-16 bg-white border-y border-border/40 relative z-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10 grid grid-cols-1 md:grid-cols-3 gap-10">
-          {[
-            {
-              t: "Always Within Reach",
-              d: "Never worry about distant vendors. Find exactly what you need, right where you are.",
-              i: MapPin,
-            },
-            {
-              t: "Shop With Confidence",
-              d: "Your money stays perfectly safe in Escrow until the product is securely in your hands.",
-              i: ShieldCheck,
-            },
-            {
-              t: "Real Human Connection",
-              d: "Speak directly to the hands that craft your products and provide your services.",
-              i: MessageCircle,
-            },
-          ].map((item, idx) => (
-            <div key={item.t} className="flex gap-5 group">
-              <div className="h-14 w-14 shrink-0 rounded-2xl bg-primary/5 flex items-center justify-center text-primary group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all duration-300">
-                <item.i className="h-7 w-7" />
-              </div>
-              <div>
-                <div className="font-display text-2xl text-ink mb-2">
-                  {item.t}
-                </div>
-                <div className="text-base text-muted-foreground leading-relaxed">
-                  {item.d}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* CURIOSITY INTRO & CATEGORIES */}
-      <section
-        id="categories"
-        className="py-24 bg-[#FDFCFB] relative overflow-hidden"
-      >
-        <div className="mx-auto max-w-7xl px-6 lg:px-10 relative z-10">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
-            <div className="max-w-3xl">
-              <span className="text-primary font-bold uppercase tracking-[0.2em] text-xs flex items-center gap-2 mb-4">
-                <Sparkles className="h-4 w-4" /> Uncover The Unseen
-              </span>
-              <h2 className="font-display text-4xl md:text-6xl text-ink leading-tight mb-6">
-                Discover local gems, <br />
-                <span className="text-primary italic">
-                  without word-of-mouth.
-                </span>
-              </h2>
-              <p className="text-xl text-muted-foreground">
-                Find exactly what you need nearby in seconds. No more asking
-                around or hoping to stumble upon the right service.
+              <p className="max-w-xl text-base leading-7 text-[#5b677b]">
+                The landing page should explain the product in seconds. This
+                section makes the flow obvious for first-time buyers.
               </p>
             </div>
-            <button className="h-14 px-8 rounded-full border-2 border-border hover:border-primary hover:text-primary font-bold transition-all shrink-0 bg-white shadow-sm">
-              Explore all categories
-            </button>
-          </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                n: "The Baker's Corner",
-                img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80",
-                d: "Fresh & Warm",
-              },
-              {
-                n: "Artisan Crafts",
-                img: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=800&q=80",
-                d: "Handmade Locally",
-              },
-              {
-                n: "Home Services",
-                img: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80",
-                d: "Trusted Experts",
-              },
-              {
-                n: "Fashion & Style",
-                img: "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?auto=format&fit=crop&w=800&q=80",
-                d: "Tailored For You",
-              },
-            ].map((cat) => (
-              <div
-                key={cat.n}
-                className="group cursor-pointer relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-soft hover:shadow-elevated transition-all duration-500 hover:-translate-y-2"
-              >
-                <img
-                  src={cat.img}
-                  alt={cat.n}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/20 to-transparent opacity-90" />
-                <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-[2rem]" />
-                <div className="absolute bottom-8 left-8 right-8">
-                  <p className="text-primary-soft text-xs font-bold tracking-widest uppercase mb-2 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                    {cat.d}
-                  </p>
-                  <h3 className="text-white font-display text-3xl leading-tight">
-                    {cat.n}
-                  </h3>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* THE PULSE: NEARBY ACTIVITY (Premium Product Display) */}
-      <section id="nearby" className="py-24 bg-white relative">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="text-center max-w-3xl mx-auto mb-20">
-            <span className="text-primary font-bold uppercase tracking-[0.2em] text-xs">
-              Live Feed
-            </span>
-            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-ink mt-4 leading-tight">
-              Extraordinary finds, <br /> just streets away.
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              {
-                n: "Artisan Sourdough",
-                p: "₦3,500",
-                d: "0.8km",
-                r: 4.9,
-                s: "The Bread Lab",
-                img: "https://images.unsplash.com/photo-1585478259715-876a6a81fc08?auto=format&fit=crop&w=600&q=80",
-              },
-              {
-                n: "Custom Denim Jacket",
-                p: "₦25,000",
-                d: "1.2km",
-                r: 4.8,
-                s: "Thread & Ink",
-                img: "https://images.unsplash.com/photo-1542272454315-4c01d7abdf4a?auto=format&fit=crop&w=600&q=80",
-              },
-              {
-                n: "Organic Shea Butter",
-                p: "₦4,200",
-                d: "2.5km",
-                r: 5.0,
-                s: "Glow Nature",
-                img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=600&q=80",
-              },
-              {
-                n: "Camera Lens Repair",
-                p: "From ₦15k",
-                d: "3.1km",
-                r: 4.7,
-                s: "Analog Soul",
-                img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=600&q=80",
-              },
-            ].map((prod, i) => (
-              <div
-                key={i}
-                className="group bg-white rounded-[2rem] p-3 border border-border/40 shadow-soft hover:shadow-elevated transition-all duration-500 hover:border-primary/20"
-              >
-                <div className="relative aspect-square rounded-[1.5rem] overflow-hidden mb-5">
-                  <img
-                    src={prod.img}
-                    alt={prod.n}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute top-3 right-3 h-10 w-10 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-ink hover:text-primary transition-colors shadow-sm cursor-pointer hover:scale-110 active:scale-95">
-                    <Heart className="h-5 w-5" />
-                  </div>
-                  <div className="absolute bottom-3 left-3 bg-ink/80 backdrop-blur-md text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg flex items-center gap-1.5">
-                    <MapPin className="h-3 w-3" /> {prod.d}
-                  </div>
-                </div>
-
-                <div className="px-3 pb-3">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-[10px] text-muted-foreground uppercase tracking-widest font-extrabold truncate pr-2">
-                      {prod.s}
+            <div className="mt-10 grid gap-5 lg:grid-cols-3">
+              {[
+                {
+                  step: "01",
+                  title: "Search nearby",
+                  description:
+                    "Type what you need and start with vendors and services close to your area.",
+                  icon: Search,
+                },
+                {
+                  step: "02",
+                  title: "Compare trusted options",
+                  description:
+                    "Review ratings, location, and response speed before you decide who to contact.",
+                  icon: ShieldCheck,
+                },
+                {
+                  step: "03",
+                  title: "Post a request if needed",
+                  description:
+                    "When you cannot find a match, let nearby vendors come to you with offers.",
+                  icon: MessageCircle,
+                },
+              ].map((item) => (
+                <div
+                  key={item.step}
+                  className="rounded-[2rem] border border-[#0b1120]/8 bg-[#f8f4ec] p-6"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-4xl font-black tracking-[-0.05em] text-[#0b1120]">
+                      {item.step}
                     </span>
-                    <div className="flex items-center gap-1 text-xs font-bold text-ink shrink-0 bg-warm/50 px-2 py-0.5 rounded-full">
-                      <Star className="h-3 w-3 fill-primary text-primary" />
-                      {prod.r}
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-[#f28b34] shadow-[0_10px_30px_rgba(11,17,32,0.08)]">
+                      <item.icon className="h-5 w-5" />
                     </div>
                   </div>
-                  <h3 className="text-xl font-display text-ink leading-tight mb-4 group-hover:text-primary transition-colors line-clamp-1">
-                    {prod.n}
+                  <h3 className="mt-8 text-2xl font-bold tracking-[-0.02em] text-[#0b1120]">
+                    {item.title}
                   </h3>
-                  <div className="flex items-center justify-between mt-auto">
-                    <span className="text-2xl font-display text-ink">
-                      {prod.p}
-                    </span>
-                    <button className="h-10 w-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all active:scale-95">
-                      <ShoppingCart className="h-4 w-4" />
-                    </button>
-                  </div>
+                  <p className="mt-3 text-base leading-7 text-[#5b677b]">
+                    {item.description}
+                  </p>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* COMMUNITY BOARD: THE SOUL */}
-      <section
-        id="board"
-        className="py-24 bg-ink text-white relative overflow-hidden"
-      >
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[radial-gradient(ellipse_at_center,var(--primary)_0%,transparent_70%)] opacity-30 mix-blend-screen pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[radial-gradient(ellipse_at_center,var(--primary-glow)_0%,transparent_70%)] opacity-20 mix-blend-screen pointer-events-none" />
-
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-10 grid lg:grid-cols-2 gap-20 items-center">
-          <div>
-            <span className="text-primary-soft font-bold uppercase tracking-[0.2em] text-xs flex items-center gap-2 mb-4">
-              <Users className="h-4 w-4" /> User Request Board
-            </span>
-            <h2 className="font-display text-5xl md:text-6xl lg:text-7xl leading-tight mt-4 mb-8">
-              Ask, and you <br /> shall receive.
-            </h2>
-            <p className="text-xl text-white/70 leading-relaxed mb-10 max-w-lg">
-              Can't find it nearby? Just ask. Local pros are ready to help. Post
-              a request and watch the offers roll in.
-            </p>
-            <div className="flex flex-wrap gap-5">
-              <button className="h-14 px-8 rounded-full bg-primary text-white font-bold text-lg hover:shadow-[0_0_30px_oklch(0.55_0.18_300_/_0.5)] hover:scale-105 transition-all">
-                Post a Request
-              </button>
-              <button className="h-14 px-8 rounded-full border border-white/20 hover:bg-white/10 font-bold text-lg transition-all">
-                Browse board
-              </button>
+              ))}
             </div>
           </div>
+        </section>
 
-          <div className="grid gap-5">
-            {[
-              {
-                u: "Tunde",
-                t: "Need a plumber for a leak in Bodija",
-                d: "Just now",
-                o: "12 offers",
-              },
-              {
-                u: "Sarah",
-                t: "Looking for 50 custom cupcakes for Saturday",
-                d: "2h ago",
-                o: "8 offers",
-              },
-              {
-                u: "Ibrahim",
-                t: "Can someone fix a MacBook battery nearby?",
-                d: "5h ago",
-                o: "15 offers",
-              },
-            ].map((req, i) => (
-              <div
-                key={i}
-                className="group bg-white/5 border border-white/10 backdrop-blur-md p-6 lg:p-8 rounded-[2rem] flex items-start gap-6 transition-all hover:bg-white/10 hover:border-white/20 hover:translate-x-4 duration-500 shadow-xl"
-              >
-                <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center text-white font-display text-2xl shrink-0 shadow-inner">
-                  {req.u[0]}
+        <section id="categories" className="bg-[#f8f4ec] py-18 lg:py-24">
+          <div className="mx-auto max-w-7xl px-6 lg:px-10">
+            <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#f28b34]">
+                  Everyday needs
+                </p>
+                <h2 className="mt-3 text-3xl font-black tracking-[-0.03em] text-[#0b1120] md:text-5xl">
+                  Built for the things people search for most.
+                </h2>
+              </div>
+              <p className="max-w-2xl text-base leading-7 text-[#5b677b]">
+                Instead of showcasing abstract categories, the page should make
+                real local use cases feel immediate, practical, and worth
+                trying.
+              </p>
+            </div>
+
+            <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+              {useCases.map((item) => (
+                <div
+                  key={item.title}
+                  className="rounded-[2rem] border border-[#0b1120]/8 bg-white p-6 shadow-[0_12px_40px_rgba(11,17,32,0.05)]"
+                >
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#0b1120] text-white">
+                    <Store className="h-5 w-5" />
+                  </div>
+                  <h3 className="mt-6 text-2xl font-bold tracking-[-0.02em] text-[#0b1120]">
+                    {item.title}
+                  </h3>
+                  <p className="mt-3 text-base leading-7 text-[#5b677b]">
+                    {item.description}
+                  </p>
                 </div>
-                <div className="flex-1">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-3">
-                      <span className="font-bold text-lg text-white/90">
-                        {req.u}
-                      </span>
-                      <span className="text-[10px] text-white/50 flex items-center gap-1">
-                        <Clock className="h-3 w-3" /> {req.d}
-                      </span>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="nearby"
+          className="border-y border-black/5 bg-white py-18 lg:py-24"
+        >
+          <div className="mx-auto max-w-7xl px-6 lg:px-10">
+            <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+              <div className="max-w-3xl">
+                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#f28b34]">
+                  Nearby proof
+                </p>
+                <h2 className="mt-3 text-3xl font-black tracking-[-0.03em] text-[#0b1120] md:text-5xl">
+                  Show buyers what local discovery actually looks like.
+                </h2>
+              </div>
+              <div className="rounded-[1.5rem] border border-[#0b1120]/8 bg-[#f8f4ec] px-5 py-4 text-sm font-medium text-[#445065]">
+                Search results should feel close, trusted, and immediately
+                useful.
+              </div>
+            </div>
+
+            <div className="mt-10 grid gap-5 lg:grid-cols-2">
+              {nearbyResults.map((item) => (
+                <div
+                  key={item.title}
+                  className="rounded-[2rem] border border-[#0b1120]/8 bg-[#f8f4ec] p-6"
+                >
+                  <div className="flex flex-wrap items-start justify-between gap-4">
+                    <div>
+                      <h3 className="text-2xl font-bold tracking-[-0.02em] text-[#0b1120]">
+                        {item.title}
+                      </h3>
+                      <p className="mt-2 text-base text-[#445065]">
+                        {item.vendor}
+                      </p>
                     </div>
-                    <span className="text-[10px] text-primary-soft uppercase font-bold tracking-widest bg-primary/20 border border-primary/30 px-3 py-1 rounded-full">
-                      {req.o}
+                    <span className="rounded-full bg-[#0b1120] px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white">
+                      {item.badge}
                     </span>
                   </div>
-                  <p className="text-xl lg:text-2xl text-white font-display leading-tight">
-                    "{req.t}"
-                  </p>
-                  <button className="mt-5 flex items-center gap-2 text-sm font-bold text-primary-soft group-hover:gap-3 transition-all opacity-80 group-hover:opacity-100">
-                    Make an offer <ArrowRight className="h-4 w-4" />
+                  <div className="mt-6 flex flex-wrap gap-3 text-sm font-medium text-[#445065]">
+                    <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2">
+                      <MapPin className="h-4 w-4 text-[#f28b34]" />
+                      {item.distance}
+                    </span>
+                    <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2">
+                      <Clock3 className="h-4 w-4 text-[#1f7a5a]" />
+                      {item.eta}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="board" className="bg-[#0b1120] py-18 text-white lg:py-24">
+          <div className="mx-auto max-w-7xl px-6 lg:px-10">
+            <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+              <div>
+                <p className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.22em] text-[#f6b77d]">
+                  <Users className="h-4 w-4" />
+                  Request board
+                </p>
+                <h2 className="mt-4 text-4xl font-black tracking-[-0.04em] text-white md:text-6xl">
+                  When nearby search fails, demand takes over.
+                </h2>
+                <p className="mt-6 max-w-xl text-lg leading-8 text-white/68">
+                  This is Provinear&apos;s strongest differentiator. Buyers do
+                  not stop at dead ends. They post what they need and local
+                  vendors reply with offers.
+                </p>
+                <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+                  <a
+                    href="#waitlist"
+                    className="inline-flex h-14 items-center justify-center rounded-full bg-[#f28b34] px-8 text-base font-semibold text-[#0b1120]"
+                  >
+                    Join waitlist
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      navigate({ to: "/search", search: { q: "" } })
+                    }
+                    className="inline-flex h-14 items-center justify-center rounded-full border border-white/12 px-8 text-base font-semibold text-white"
+                  >
+                    Browse search
                   </button>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* SELLERS: THE OPPORTUNITY */}
-      <section
-        id="sellers"
-        className="py-24 lg:py-32 bg-[#FDFCFB] overflow-hidden relative"
-      >
-        <div className="mx-auto max-w-7xl px-6 lg:px-10 grid lg:grid-cols-2 gap-20 items-center">
-          <div className="relative order-2 lg:order-1">
-            <div className="absolute inset-0 bg-primary/10 blur-[120px] rounded-full" />
-            <div className="relative aspect-[4/5] lg:aspect-square rounded-[3rem] overflow-hidden shadow-elevated border-8 border-white">
-              <img
-                src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?auto=format&fit=crop&w=1200&q=80"
-                alt="Seller"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent" />
-              <div className="absolute bottom-10 left-10 text-white">
-                <div className="text-4xl lg:text-5xl font-display mb-3">
-                  Sarah's Studio
-                </div>
-                <div className="flex items-center gap-2 text-sm font-bold opacity-90 uppercase tracking-widest bg-white/20 backdrop-blur-md px-4 py-2 rounded-full inline-flex">
-                  <Star className="h-4 w-4 fill-primary text-primary" />
-                  Top Rated Neighborhood Maker
-                </div>
+              <div className="grid gap-4">
+                {requestBoard.map((item) => (
+                  <div
+                    key={item.request}
+                    className="rounded-[2rem] border border-white/10 bg-white/5 p-6 backdrop-blur-sm"
+                  >
+                    <div className="flex items-center justify-between gap-4">
+                      <p className="text-lg font-semibold">{item.name}</p>
+                      <span className="rounded-full bg-[#1f7a5a]/20 px-3 py-1 text-xs font-semibold uppercase tracking-[0.15em] text-[#9ce3c7]">
+                        {item.responses}
+                      </span>
+                    </div>
+                    <p className="mt-4 text-2xl font-semibold leading-tight tracking-[-0.02em] text-white">
+                      {item.request}
+                    </p>
+                    <div className="mt-5 flex items-center justify-between gap-4 text-sm text-white/60">
+                      <span>{item.time}</span>
+                      <span className="inline-flex items-center gap-2 font-semibold text-[#f6b77d]">
+                        Vendors can respond
+                        <ArrowRight className="h-4 w-4" />
+                      </span>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
+        </section>
 
-          <div className="order-1 lg:order-2">
-            <span className="text-primary font-bold uppercase tracking-[0.2em] text-xs">
-              Join the ecosystem
-            </span>
-            <h2 className="font-display text-5xl md:text-6xl lg:text-7xl leading-tight mt-4 mb-8 text-ink">
-              Turn your local craft into a{" "}
-              <span className="text-primary italic">thriving business.</span>
-            </h2>
-            <p className="text-xl text-muted-foreground leading-relaxed mb-10">
-              Join thousands of providers being discovered every day. Create
-              your beautiful digital storefront in minutes and let customers
-              find you effortlessly.
-            </p>
-            <ul className="grid gap-5 mb-12">
-              {[
-                "Zero technical skills required to start",
-                "Instant reach to your immediate neighborhood",
-                "Built-in secure escrow payments for peace of mind",
-                "Earn your Purchase & Fulfillment Scores",
-              ].map((point) => (
-                <li
-                  key={point}
-                  className="flex items-center gap-4 text-ink font-bold text-lg bg-white p-4 rounded-2xl shadow-sm border border-border/50"
+        <section id="sellers" className="bg-[#eef8f3] py-18 lg:py-24">
+          <div className="mx-auto max-w-7xl px-6 lg:px-10">
+            <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+              <div className="rounded-[2.5rem] bg-[#1f7a5a] p-8 text-white shadow-[0_24px_80px_rgba(31,122,90,0.24)] lg:p-10">
+                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#b9efd8]">
+                  For sellers
+                </p>
+                <h2 className="mt-4 text-4xl font-black tracking-[-0.04em] md:text-5xl">
+                  Help local buyers find your business faster.
+                </h2>
+                <p className="mt-5 text-lg leading-8 text-white/78">
+                  Provinear is not only for discovery. It also gives providers a
+                  clearer route to visibility, trust, and repeat local demand.
+                </p>
+              </div>
+
+              <div>
+                <div className="grid gap-4">
+                  {sellerPoints.map((point) => (
+                    <div
+                      key={point}
+                      className="flex items-start gap-4 rounded-[1.5rem] border border-[#0b1120]/8 bg-white p-5"
+                    >
+                      <div className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#0b1120] text-white">
+                        <CheckCircle2 className="h-5 w-5" />
+                      </div>
+                      <p className="text-base leading-7 text-[#445065]">
+                        {point}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+                <a
+                  href="#waitlist"
+                  className="mt-7 inline-flex h-14 items-center justify-center rounded-full bg-[#0b1120] px-8 text-base font-semibold text-white"
                 >
-                  <CheckCircle2 className="h-6 w-6 text-primary shrink-0" />
-                  {point}
-                </li>
-              ))}
-            </ul>
-            <button className="h-16 px-10 rounded-full bg-ink text-white font-bold text-lg hover:bg-primary transition-all shadow-elevated active:scale-95">
-              Start selling today
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* FINAL CTA: THE CONVERSION */}
-      <section className="py-24 px-6 lg:px-10 bg-white">
-        <div className="mx-auto max-w-7xl rounded-[3rem] lg:rounded-[4rem] bg-ink p-12 lg:p-24 text-center text-white relative overflow-hidden shadow-[0_40px_100px_-20px_oklch(0.28_0.09_295_/_0.4)]">
-          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay" />
-          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[radial-gradient(circle_at_top_right,var(--primary)_0%,transparent_60%)] opacity-50" />
-          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[radial-gradient(circle_at_bottom_left,var(--primary-glow)_0%,transparent_60%)] opacity-40" />
-
-          <div className="relative z-10">
-            <h2 className="font-display text-5xl md:text-7xl lg:text-8xl leading-[0.95] mb-8">
-              Commerce, <br /> finally connected.
-            </h2>
-            <p className="text-xl lg:text-2xl text-white/80 leading-relaxed max-w-2xl mx-auto mb-14">
-              Join the movement of localized commerce. Find what you need,
-              support who you love, and grow where you live.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-5">
-              <button
-                onClick={() =>
-                  navigate({ to: "/search", search: { q: searchQuery } })
-                }
-                className="h-16 px-10 rounded-full bg-white text-ink font-bold text-lg shadow-elevated hover:scale-105 active:scale-95 transition-all"
-              >
-                Start exploring
-              </button>
-              <button className="h-16 px-10 rounded-full border-2 border-white/20 text-white font-bold text-lg hover:bg-white/10 active:scale-95 transition-all">
-                Download the app
-              </button>
+                  Join as a vendor
+                </a>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        <section id="waitlist" className="bg-white py-20 lg:py-24">
+          <div className="mx-auto max-w-4xl px-6 lg:px-10">
+            <div className="rounded-[2.5rem] border border-[#0b1120]/8 bg-[#f8f4ec] p-8 text-center shadow-[0_24px_80px_rgba(11,17,32,0.08)] lg:p-12">
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#f28b34]">
+                Join the waitlist
+              </p>
+              <h2 className="mt-4 text-4xl font-black tracking-[-0.04em] text-[#0b1120] md:text-6xl">
+                Be first to try Provinear in your area.
+              </h2>
+              <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-[#5b677b]">
+                Sign up to hear when buyer access opens, when vendor onboarding
+                expands, and when new neighborhoods go live.
+              </p>
+
+              <form
+                onSubmit={handleWaitlistSubmit}
+                className="mx-auto mt-8 max-w-2xl"
+              >
+                <div className="flex flex-col gap-3 rounded-[2rem] border border-[#0b1120]/8 bg-white p-3 shadow-[0_12px_40px_rgba(11,17,32,0.05)] sm:flex-row">
+                  <input
+                    type="email"
+                    value={waitlistEmail}
+                    onChange={(e) => setWaitlistEmail(e.target.value)}
+                    placeholder="Enter your email address"
+                    className="h-14 flex-1 rounded-[1.25rem] border border-transparent px-5 text-base text-[#0b1120] outline-none placeholder:text-[#7b8798] focus:border-[#f28b34]/30"
+                    required
+                  />
+                  <button
+                    type="submit"
+                    className="inline-flex h-14 items-center justify-center rounded-full bg-[#f28b34] px-7 text-base font-semibold text-[#0b1120]"
+                  >
+                    Join waitlist
+                  </button>
+                </div>
+              </form>
+
+              <div className="mt-5 min-h-6 text-sm font-medium text-[#1f7a5a]">
+                {waitlistJoined
+                  ? "Thanks. Your interest has been noted for the launch list."
+                  : "Primary CTA now leads to an in-page waitlist form while product access matures."}
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
 
       <Footer />
     </div>
