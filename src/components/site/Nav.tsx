@@ -1,26 +1,51 @@
 import { Wordmark } from "@/components/site/Wordmark";
+import { Search, MapPin } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 
 export function Nav() {
   return (
-    <header className="absolute top-0 left-0 right-0 z-30">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10 py-6 flex items-center justify-between">
-        <a href="/" className="group flex items-center transition-opacity hover:opacity-90">
+    <header className="absolute top-0 left-0 right-0 z-50">
+      <div className="mx-auto max-w-7xl px-6 lg:px-10 py-8 flex items-center justify-between">
+        <Link
+          to="/"
+          className="group flex items-center transition-opacity hover:opacity-90"
+        >
           <Wordmark size="md" />
-        </a>
-        <nav className="hidden md:flex items-center gap-9 text-sm text-muted-foreground">
-          <a href="#vision" className="hover:text-foreground transition-colors">Vision</a>
-          <a href="#how" className="hover:text-foreground transition-colors">How it works</a>
-          <a href="#marketplaces" className="hover:text-foreground transition-colors">Marketplaces</a>
-          <a href="#providers" className="hover:text-foreground transition-colors">Providers</a>
+        </Link>
+
+        <nav className="hidden lg:flex items-center gap-10 text-sm font-semibold text-muted-foreground">
+          <Link to="/" className="hover:text-primary transition-colors">
+            Home
+          </Link>
+          <a
+            href="#categories"
+            className="hover:text-primary transition-colors"
+          >
+            Categories
+          </a>
+          <a href="#nearby" className="hover:text-primary transition-colors">
+            Nearby
+          </a>
+          <a href="#board" className="hover:text-primary transition-colors">
+            Request Board
+          </a>
+          <a href="#sellers" className="hover:text-primary transition-colors">
+            For Sellers
+          </a>
         </nav>
-        <div className="flex items-center gap-2">
-          <span className="hidden sm:inline-flex items-center gap-2 rounded-full border border-border/70 bg-surface-elevated/60 backdrop-blur px-3.5 py-1.5 text-xs text-muted-foreground">
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
-            </span>
-            Coming soon
-          </span>
+
+        <div className="flex items-center gap-4">
+          <Link
+            to="/search"
+            search={{ q: "" }}
+            className="hidden sm:flex items-center gap-2 rounded-2xl border border-border/60 bg-white/50 backdrop-blur px-4 py-2 text-xs font-bold text-ink hover:bg-white transition-all shadow-soft"
+          >
+            <Search className="h-3.5 w-3.5 text-primary" />
+            Find nearby
+          </Link>
+          <button className="px-5 py-2.5 rounded-2xl bg-primary text-primary-foreground text-xs font-bold shadow-soft hover:shadow-elevated transition-all">
+            Join Provinear
+          </button>
         </div>
       </div>
     </header>

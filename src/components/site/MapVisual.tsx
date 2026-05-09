@@ -14,12 +14,28 @@ export function MapVisual() {
       >
         <defs>
           <radialGradient id="ring" cx="50%" cy="50%" r="50%">
-            <stop offset="60%" stopColor="oklch(0.55 0.18 300)" stopOpacity="0" />
-            <stop offset="100%" stopColor="oklch(0.55 0.18 300)" stopOpacity="0.35" />
+            <stop
+              offset="60%"
+              stopColor="oklch(0.55 0.18 300)"
+              stopOpacity="0"
+            />
+            <stop
+              offset="100%"
+              stopColor="oklch(0.55 0.18 300)"
+              stopOpacity="0.35"
+            />
           </radialGradient>
           <linearGradient id="line" x1="0" x2="1" y1="0" y2="1">
-            <stop offset="0%" stopColor="oklch(0.55 0.18 300)" stopOpacity="0.7" />
-            <stop offset="100%" stopColor="oklch(0.55 0.18 300)" stopOpacity="0" />
+            <stop
+              offset="0%"
+              stopColor="oklch(0.55 0.18 300)"
+              stopOpacity="0.7"
+            />
+            <stop
+              offset="100%"
+              stopColor="oklch(0.55 0.18 300)"
+              stopOpacity="0"
+            />
           </linearGradient>
         </defs>
 

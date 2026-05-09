@@ -1,0 +1,674 @@
+﻿PROVINEAR
+AGILE BUSINESS REQUIREMENTS 
+
+
+Dynamo
+Ibadan, Oyo State, 200109
+
+
+VERSION 2.0.0
+
+
+Created: 23/12/2023
+Last updated: 12/02/2024
+
+
+VERSION HISTORY
+	VERSION
+	APPROVED BY
+	REVISION DATE
+	DESCRIPTION OF CHANGE
+	AUTHOR
+	1.0.0
+	
+
+	23/12/2023
+	Original
+	Timothy Adeleke
+	2.0.0
+	
+
+	12/02/2024
+	Major change that includes the marketplaces
+	TImothy Adeleke, Warith Adeoti
+	2.1.0
+	
+
+	29/04/2024
+	Added minimalist view of the vendors portal
+	Timothy Adeleke
+	2.1.1
+	
+
+	04/05/2024
+	Added Minimalistic view for the buyer view
+Updated Minimalistic vendor for the vendor portal
+* product attributes for proper description
+* promotion on product
+Added How delivery will work. 
+	Timothy Adeleke
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+________________
+
+
+
+
+
+
+TABLE OF CONTENTS
+
+
+1. EXECUTIVE SUMMARY SNAPSHOT        6
+2. PROJECT DESCRIPTION        7
+3. PROJECT SCOPE        8
+3.1 MAJOR FEATURE        8
+3.2 OTHER        9
+3.3 OUT OF SCOPE (FUTURE)        9
+4. BUSINESS DRIVERS        10
+4.1 WHY IS DYNAMO INITIATING THIS PROJECT?        10
+4.2 CURRENT PROCESS        11
+4.3 PROPOSED PROCESS        12
+5. FUNCTIONAL REQUIREMENTS (OVERVIEW)        13
+5.1 PRIORITY TABLE        13
+5.2 REQUIREMENTS CATEGORIES (RC1)        13
+6.         14
+7. FUNCTIONAL REQUIREMENTS (BY COMPONENT)        15
+6.1 COMPONENTS OF PROVINEAR        15
+6.1.1 ACTORS        15
+6.1.2 CONCEPTS        15
+6.2 REQUIREMENT DEFINITION        15
+6.2.1 GUEST ACTOR        15
+Description        16
+Requirements        16
+6.2.2 BUYER ACTOR        16
+Description        16
+Requirements        16
+🆕 Minimalistic view of the buyer's portal (Added in v 2.1.1)        18
+6.2.3 SELLER ACTOR        22
+Description        22
+Requirements        22
+Minimalistic view of the vendor’s portal (Added in v 2.1.0)        23
+🆕 How delivery will work (Added in v 2.1.1)        27
+6.2.4 MODERATOR ACTOR        29
+Description        30
+Requirements        30
+6.2.5 MARKETPLACE CONCEPT        30
+Description        30
+Requirements        31
+Marketplace Configurations        32
+6.2.6 PRODUCT EXPLORATION        32
+Description        32
+6.2.7 ESCROW SERVICE        33
+Description        33
+Escrow Appeal        34
+6.2.8 PURCHASE SCORE        34
+6.2.9 SHOP        34
+Description        34
+Classification of Shop        34
+Configuring a Shop        35
+Requirement        35
+8. NON-FUNCTIONAL REQUIREMENTS        36
+9. ASSUMPTIONS        37
+WIPS        37
+14. GLOSSARY        38
+15. REFERENCES        39
+16. APPENDIX        39
+DISCLAIMER        40
+
+
+________________
+
+
+1. EXECUTIVE SUMMARY SNAPSHOT
+The aim of this document is to lay out plans for Provinear, a simple app connecting folks with nearby service providers. This app tackles the hassle of finding local services by allowing users to easily search for nearby providers. It'll feature a way for users to ask for services not available nearby and enable direct chats between users and providers. The goal is to make finding nearby services quick and hassle-free for everyone involved. This summary is for developers, managers, and investors to get a quick understanding of what Provinear's about: connecting people with local services in a straightforward way.
+
+
+2. PROJECT DESCRIPTION
+The project at hand revolves around the creation of Provinear, an application designed to revolutionize how users find and engage with nearby service providers. Currently, the process of discovering local services is often cumbersome, relying on word-of-mouth, whatsapp groups or extensive online searches that might not yield nearby options. This inefficiency leads to challenges in quickly accessing needed services or products within one's vicinity. The aim of Provinear is to simplify this process by offering a centralized platform where users can seamlessly connect with local service providers.
+
+
+The existing process for finding nearby service providers involves time-consuming methods that don't always yield satisfactory results. Challenges include limited access to local service providers, reliance on distant options found online, and the absence of a streamlined means for users to request services not readily available nearby. The need for this project arises from the desire to address these challenges and create an intuitive solution that empowers users to easily discover and engage with nearby service providers, fostering convenience and accessibility within local communities. Provinear seeks to enhance the user experience by providing a platform that bridges the gap between consumers seeking services/products and vendors offering them, all within their local area.
+
+
+3. PROJECT SCOPE
+This information provides team members with guidelines for the scope of the project, so they can plan and resource accordingly. 
+3.1        MAJOR FEATURE
+The following are the major feature “in scope” for the project:
+* Development of Provinear App: Creation of a user-friendly web application that enables users to search and connect with nearby service providers.
+* User Registration and Authentication: Implementation of user registration and login functionalities using email or social media credentials.
+* Location-Based Service Provider Search: Integration of GPS/location services to facilitate the search for nearby service providers based on user preferences.
+* User Request Board: Incorporation of a feature allowing users to post service requests not available nearby and enabling notifications to vendors for new service/product requests.
+* Messaging Platform: Implementation of an in-app messaging system to facilitate direct communication between users and service providers/vendors.
+* Vendor Profile Pages: Creation of vendor profiles to showcase catalogs, price lists, menus, etc., providing users with detailed information about services/products offered.
+* User Feedback Mechanism: Implementation of a system to gather user feedback or ratings for service providers/vendors to enhance user experience.
+* Basic Analytics: Provision of basic usage analytics to track user engagement and interactions within the app.
+* Initial Vendor Onboarding Support: Providing initial guidance or resources to help vendors register and create appealing profiles on the app.
+3.2        OTHER
+The following are the other features for the project:
+* Transaction Processing: The project will include the development of payment processing or transaction functionalities within the app.
+* Vendor Background Checks: Conducting background checks or verification of vendors' credentials is part of the project scope.
+* Moderation Tools: Incorporation of basic moderation tools to ensure the quality and appropriateness of user-generated content on the platform.
+* Extensive User Analytics: Detailed analytics beyond basic usage metrics, such as user behavior analysis,  predictive analytics or complex data modeling, are included in this project.
+* Marketing and Promotion: Activities related to marketing, advertising, or promotional campaigns to attract users or vendors are not within the project's scope.
+3.3        OUT OF SCOPE (FUTURE)
+* Physical Product Delivery: Handling or management of physical product delivery services between vendors and users is CURRENTLY outside the project's scope.
+4. BUSINESS DRIVERS
+4.1        WHY IS DYNAMO INITIATING THIS PROJECT?
+1. Enhanced User Convenience
+        The primary motivation behind the Provinear project is to significantly enhance user convenience when seeking local services or products.  Provinear aims to empower users by placing a diverse range of local services at their fingertips, ensuring quick and hassle-free access to required services or products, thus significantly enhancing user convenience. 
+
+
+2. Supporting Local Businesses
+        Another pivotal driver behind the Provinear project is the aim to support and promote local businesses and service providers within communities. Often, smaller or locally-owned businesses struggle to gain visibility and reach their target audience due to limited marketing resources or online presence. As a result, these businesses might face challenges in competing with larger or more prominent entities that have better visibility.
+
+
+        By featuring local vendors prominently within the app, Provinear aims to provide these businesses with a channel to showcase their services and products to users within their immediate vicinity.
+
+
+4.2        CURRENT PROCESS
+  
+
+4.3        PROPOSED PROCESS
+  5. FUNCTIONAL REQUIREMENTS (OVERVIEW)
+5.1        PRIORITY TABLE
+Use the following priority table to apply a ratings system to the requirements, so you have the visibility (into the value, status, and description of each requirement) that’s necessary for determining whether a particular requirement is essential to project success:
+	Value
+	Rating
+	Description
+	1
+	Critical
+	The requirement is critical to the project’s success. Without fulfilling this requirement, the project is not possible. 
+	2
+	High
+	The requirement is high priority to the project’s success, but the project could still be implemented in a minimum viable product (MVP) scenario. 
+	3
+	Medium
+	The requirement is important to the project’s success, as it provides value, but the project could still be implemented in an MVP scenario. 
+	4
+	Low
+	The requirement is low priority (i.e., it would be nice to have), but the project’s success is not dependent upon it. 
+	5
+	Future
+	The requirement is outside of the project’s scope and is included as a possible component of a prospective release and/or feature. 
+	
+
+5.2        REQUIREMENTS CATEGORIES (RC1)
+In this section, we detail the project’s functional use; break down the project’s requirements into categories so that they’re easy to understand. You can duplicate this section for any successive project categories as needed. The following table includes a unique ID for each requirement, the details of each requirement, the priority of each requirement, and the name of the person who is driving or is responsible for the requirement. 
+	ID
+	Requirement
+	Priority
+	Raised By
+	RC 1
+	Implementation of a secure and user-friendly registration/authentication system within Provinear.
+	2
+	Timothy Adeleke
+	RC 2
+	Integration of GPS/location services allowing users to search for nearby service providers.
+	1
+	Warith Adeoti
+	RC 3
+	 Creation of a feature enabling users to post service requests not available nearby.
+	3
+	Timothy Adeleke
+	RC 4
+	Implementation of an in-app messaging system enabling direct communication between users and service providers.
+	2
+	Timothy Adeleke
+	RC 5
+	Development of vendor profile pages showcasing catalogs, price lists, menus, etc.
+	1
+	Warith Adeoti
+	RC 6
+	Inclusion of a user feedback/rating system to enhance user experience and assist in vendor credibility assessment.
+	3
+	Timothy Adeleke
+	RC 7
+	Providing initial guidance or resources to help vendors register and create appealing profiles on the app
+	4
+	Warith Adeoti
+	RC 8
+	Incorporation of basic moderation tools to ensure the quality and appropriateness of user-generated content on the platform.
+	5
+	Timothy Adeleke
+	RC 9
+	Provision of basic usage analytics to track user engagement and interactions within the app.
+	4
+	Warith Adeoti
+	RC 10
+	Vendors profile edit page for Vendors to seamlessly make edits on their catalogues and other profile settings such as showing services pricing to users, contact information
+	1
+	Warith Adeoti
+	6. 7. FUNCTIONAL REQUIREMENTS (BY COMPONENT)
+6.1        COMPONENTS OF PROVINEAR
+6.1.1        ACTORS
+1. Guest
+2. Buyer
+3. Seller (Service Provider, Vendor)
+4. Market Place Moderator (Provinear)
+
+
+6.1.2        CONCEPTS
+1. Market Place
+2. Product Exploration
+3. Escrow Service
+4. Purchase Scores
+5. Shop (Store)
+   1. Configuring a shop
+6.2        REQUIREMENT DEFINITION
+6.2.1        GUEST ACTOR
+Requirement Acronym: GUE-RQ
+Description
+A Guest is anybody without an account with Provinear (Public Users), able to explore open/public products listed by sellers on Provinear.
+Requirements
+1. Guests should be able to explore products from open/public Market Places.
+2. Guests can only explore these products but cannot make an order or any form of transactions without having an account.
+3. Guests should be able to view vendor’s information on the products/services they explore.
+4. Guests wishing to make purchases for products/services should be prompted/redirected to create an account.
+
+
+6.2.2        BUYER ACTOR
+Requirement Acronym: BUY-RQ
+Description
+A buyer is anybody on Provinear that is allowed to make purchases in addition to what a guest can do. Buyers can also be simply defined as a “registered guest” with additional privileges.
+Requirements
+1. Buyers should be able to login to Provinear with their username and password and social logins. One account per email.
+2. Buyers should be able to do everything a guest can do.
+3. A buyer can explore the various public marketplaces on Provinear.
+4. A buyer can join private marketplaces using invite links and invite codes.
+5. After seeing their desired products in a market place, a buyer should be able to initiate a purchase for that product ( and add it to cart).
+6. A buyer should be able to set pickups address for the purchased product.
+7. A buyer should be able to choose a mode of payment (as specified by Provinear Escrow Service) and make payment.
+8. A buyer should be able to select a mode of delivery, whether pickup or logistics delivery.
+9. A buyer should be able to select the logistic service they would love to deliver their product.
+10. A buyer should see the status of their product delivery, whether it has been picked by the logistics or not or whether it is delivered.
+11. A buyer should be able to open an Appeal on a product they ordered.
+12. A buyer should be able to make reviews on a product and can only review products they have purchased.
+13. Buyers should be able to earn purchase scores based on the amount of transactions made on Provinear. These purchase scores will be used to rank them in market places.
+🆕 Minimalistic view of the buyer's portal (Added in v 2.1.1)
+In this section, like always, I will try to describe how the buyers/guest/general user view will look like in the simplest way possible. The journey of a potential buyer starts from going to the application and viewing the homepage.  A guest should be able to explore the application without having their account setup yet. However, in order to carry out any transactions, an account is needed. What will the user see when they visit Provinear for the first time? A guest should be welcomed with appealing but yet informative contents, basically the following;
+* search for product bar (sticky at the top)
+* what people are buying section (top products this week)
+* product categories
+* top stores
+* create your own store call to action
+
+
+The user can interact with each of these contents/sections. A click on a product will direct them to the product details page, top categories will direct them to a page containing products for that particular category which will also have other categories they can select to explore.
+
+
+Now one of the most important features is the search functionality. As little as it looks, it is very important. The user should be able to search for products using natural language and get a list of products near them. The user can filter to firstly see products near them or see products with less prices (cheap prices) first. Based on the search query, the backend will return products matching the search query as well as services matching the search query (service will come in later releases, products for now). A product card should have the following, essentially;
+* the title/name of the product. Some titles/names may be long and may not fit the card, so it's okay to truncate them. And add the dot dot dot suffix.
+* A thumbnail of the product. For ease of use. The user should be able to swipe this thumbnail to preview other images and the thumbnail should expand on click. Anyhow it will be designed, the point is that the users should be able to preview the images without going to or loading the product details page.  I find loading the product details page each time just to view other images stressful. And ease of use is one of the issues we discovered in our survey. 
+* The price 
+* strike out price, if there's any
+* the store name underneath
+* A like or love button (or any other suitable element) to add the product to their favorite so they can view it later
+* the quality score (our nomenclature for rating) with the number of ratings received.
+* The add to cart action button as well as,
+* the share action button
+Obviously, the search result should be paginated.
+
+
+The product page will basically contain everything listed above in addition to the following.
+* The promotions available for the product as set by the vendor, currently we have only discounts.
+* Estimated time to prepare the order for delivery. 
+* Estimated time of delivery (calculated based on location)
+* The ratings received by the product. On each rating the user should be able to like and dislike a rating and mark it as helpful or not. This is going into the mvp because…from the survey, honest review is one of the important issues that was discovered. I believe if people get scores for their review, they will be motivated to give a more detailed and honest review about the product instead of just “hmm good”, “nice”, “it's comfortable”, etc. A rating will show the number of people that found it helpful. The ratings for a product will be displayed in decreasing order of the “helpful score”. A rating should show the date it was created as well as the name of the buyer. However, not just anyone can rate a product, it is only available after you have successfully purchased the product. You may refer to how Google play does their product rating for more clarification.  
+* Other products sold by the store section. This should show about six other products that are available from the store, showing the products in the same category as the currently viewed product first. A “see all in store” kind of button should be available here. This button will take the user to the vendor's store to view all other products in the store. 
+* A “similar products” section to view all other products in the same category of the currently viewed product but from other stores (well, maybe, and preferably…cheaper and nearer - wink)
+
+
+Now another important feature is what happens when the user clicks on the add to cart action button. Well, the product gets added to cart and they can increase or decrease the quantity they want to purchase. 
+
+
+If a product has a promotion attached to it (discount on unit purchased), as a user increases the unit they are adding to cart, the percentage of the current unit will be applied to their price. For example, if the vendor sets a 10% discount for purchases above 5 units for a NGN 5000 product. The moment their unit hits 5, the discount will be applied and the amount they will receive will be 24,500 instead of 25k. 
+
+
+The page should show if the product is in cart, how many is in cart and how much they are paying in total. The cart should be in a very well visible position of the page. It could be floating or sticky. 
+When the cart is opened,  they should see all the products that have been added to their cart and the total amount they are paying for that. They can reduce the quantity of a particular product if it is more than one. They can even remove the entire product from the cart. On this page they should also see the recent products viewed. 
+
+
+When the user is checking out. They should be able to see 
+* the total amount they are paying. Any discounts on their products. 
+* The total delivery fee. 
+* They should be able to set a billing address which will contain basically their information. If they want to add another billing information, they should be able to add it here and change the billing address for this particular transaction. 
+* They should be able to see their default payment option and be able to change the payment option they want to use. Basically, for now we will only allow bank transfer and credit/debit card payment. 
+* information about how their product will be delivered and when it will be delivered. It is worth noting that orders can be done in different shipments. The vendor may be the one to fulfill/deliver the product themselves and if set, Provinear will fulfill the order for the vendor. (You can check how delivery will work in the section for further info).
+
+
+When the user has confirmed these details, they can then go ahead and make payment with the chosen payment option. After payment they should be directed to the order page where they will view all the products and the status of their delivery alongside the date and time the order was placed. The unique order id should be shown here too. An order id should be an alphanumeric symbol of 8 characters. e.g PN-GHU720
+The user should be able to contact support on the checkout page through to the order pages. So, a contact us button or hyperlink should be visible throughout the process. 
+
+
+
+
+6.2.3        SELLER ACTOR
+Requirement Acronym: SELL-RQ
+Description
+A seller is any registered user of Provinear, that offers services. A seller can be referred to as a Provider (or a Vendor, Service Provider). For public identification, they can be called a Provineer (a near Provider).
+Requirements
+1. Any registered user that wishes to become a service provider, should be able to create  a seller profile.
+2. Sellers can configure multiple shops for different services/products they offer (limited).
+3. Sellers should get a step by step configuration setup of a shop.
+4. Sellers should be able to generate (and customize) a unique url for each of their shops.
+5. Sellers should be able to maintain their own customer-list.
+6. Sellers can join different Market Places, and they should be able to select which of their shops should be listed on the market place they join.
+7. Sellers can only select up to the number of shops the moderator has set on the Market Place.
+8. Sellers should be able to receive orders from buyers.
+9. Sellers should be able to set the delivery status of ordered products.
+10. Sellers should be able to open an Appeal on an ordered product.
+11. Sellers should be able to earn badges based on their level of operations on the systems, number of Invited Customers,  number of Orders Fulfilled etc
+Minimalistic view of the vendor’s portal (Added in v 2.1.0)
+In this section, I will (try to) give a detailed description of how the vendor portal will look while keeping it as simple as possible. The journey of a vendor starts with registering a normal account on Provinear and then opting to create a seller's profile. A sellers profile will entail the following
+* The name of the store
+* A brief description of the store
+* A neat logo
+* The address, email, contact phone of the store 
+* Categories of product that will be in the store
+* 🆕 Vendor's contact. The vendors should be able to add different contacts; phone, email and it can be multiple.
+* Opening and closing days and time, if there's any. That is, the opening and closing time for each day. This should default to Monday to Saturday, 9:00 to 17:00 each day. (You may check how Whatsapp business does it).
+* 🆕 How do they want delivery to be handled? Options include (Allow Provinear to handle my delivery, I will deliver products myself)
+After adding in their profile with basic information, a store url should be generated for them and they should be directed to view their empty store. They should be able to see their store details alongside the newly created url.  They should be able to copy and share this url to external sites. They should be able to see their fulfillment score which defaults to 100%. I'll talk about Fulfillment score soon. Now the next thing is to add a product. A vendor should be able to click a button on their store to add a new product. The details needed to add new products include. 
+* The product name, which I think should be unique for all products on Provinear
+* A detailed description of the product ( emphasis on detailed).
+*  Minimum of three images of the product. Maximum of 5. 
+* The price  of the product
+* The categories the product belongs to which will be multiple select
+* Some optional search tags for the product will also be a multiple select
+* The estimated time it will take to make this product ready for delivery
+* Is the product in stock? If the product is not in stock, it will only be visible on the sellers dashboard not on Provinear buyers view. 
+* 🆕 To aid proper description of a product. The vendor can add a maximum of 10 product attributes. The vendor will select an attribute from the suggested attributes given from the backend and the vendor will provide a value for it. For example the vendor wants to add color attributes to the product, they search and select color attribute and then provide a value for it, say, Blue. If their product has a flavor attribute, they can search for it and select Flavor and give a value for it, say, Strawberry. This will give proper description to the product and aid proper searching. This requirement was added based on feedback from surveys that users desire proper descriptions of products.
+* 🆕 Is there promotion for this product?
+
+
+🆕 Talking about promotion, the seller you should have separate page where they can create promotions. For now the available promotion type is discount. Basically a promotion instance will have the following:
+* the title of the promotion e.g (July promotion 10% for 4)
+* The type of the promotion (the default is discount and that's the only one we have for now). The type will determine other configurations
+* For discount the vendor will enter how many percentage discount given
+* For each unit purchase. That means there will be input for percentage and unit. 
+When a promotion is created, the vendor can attach the promotion when creating or editing a product. The vendor can create many promotions and attach them to a product. That is, we can have discounts for various units bought. However the backend will validate that the same percentage for a unit doesn't not exist for a product (reduce duplicate promotions). You may read how promotion will work in buyer view. 
+
+
+After adding a new product. They should have a button to share the product link, view the product or add another product. They should be able to view the list of products in their store and should be able to search using normal Provinear search functionality (by category or price). They should be able to view the quality score (our nomenclature for rating)  of the product which defaults to 0 stars until the first rating.
+
+
+However, their product does not show on Provinear immediately. It has to be reviewed and approved before it is shown. A product will not be approved if:
+* it has vague description
+* the picture are not clear or of good quality
+* the name is ambiguous
+* the category does not match the product.
+
+
+The test for approval is done automatically. This means that vendors can actually save their products and can also publish or list their products to be visible on Provinear. Saving will only add the product to your catalog but not visible to users while publishing or listing will generate a unique URL for your product and make it visible in searches. The  saved product details can be edited and reviewed by the vendor. When they are ready to publish or list their product for public view, the test listed above will be executed and if it fails, they will be prompted to do the needful. 
+
+
+Of course, a vendor should be able to delete their products and their store. But they should be warned that it's a dangerous activity. With the UI showing red colors where necessary. 
+
+
+Now, what happens when a vendor receives an order. A vendor should have a page for tracking orders. They should see newly placed orders that are yet to be fulfilled with the time that the order was placed. Basically, a table consisting of the product ordered, the price, the time it was ordered and the status (fulfilled or not fulfilled). When a new order is placed, the vendor should have an option to accept the order and give an estimated time (if it is different from what they gave when listing the product) it will take to make the order ready for delivery. The estimated time will be used in notifying the buyer how long their order will take to be delivered. 🆕 Although the vendor has set a store wide configuration of how their order should be delivered (either fulfilled by Provinear or by themselves), when confirming an order they have an option to change this setting for that particular order. 
+
+
+After a vendor accepts an order, they prepare the order for delivery in real life and mark the order ready for delivery thereafter. The logistics will handle the rest (check how delivery will work). When the order has been delivered, the order will be marked as fulfilled and the amount paid by the buyer will be credited into the vendor's wallet. 
+
+
+This takes us to the vendor's wallet. While we continue to survey how vendors will love to get paid, vendors should have an in app wallet to receive payment for sales. It should be minimal enough to show the balance and history. The history basically shows the fulfilled orders that credited the wallet and the withdrawals. The wallet can also show pending balance, that is, the total amount meant to be gained from unfulfilled orders.
+
+
+What happens when a vendor cancels an order instead of accepting? 
+The money is sent back to the buyer and they are notified of the situation and advise to make their purchase from another store apart from the previous store. The fulfillment score of the store will be reduced for each time they cancel an order.
+
+
+Fulfillment Score (FS) is default to 100% when the store is first created. It is calculated from how many percent of orders have been fulfilled out of the total orders placed. For example, a store will have 70% FS if they cancelled 3 out of 10 orders that they have received in their lifetime and fulfilled the remaining 7.
+
+
+Overtime, we will be able to calculate the average time it takes for a vendor to prepare an order and display it for users when purchasing the item. 
+🆕 How delivery will work (Added in v 2.1.1)
+Hooray, a vendor has an order!  Please note that if a buyer is buying multiple products from a single vendor. They will be grouped together. The vendor can still accept to fulfill each other and decline any other in the group. That means they will share same order id. When a vendor marks an order has ready to be delivered. It will be moved to the shipment page and the user will receive a notification that their order has been prepared and ready to be delivered. In the notification, they will receive a delivery reference code of 10 characters, also alphanumeric in the format PRN-some other 7 digits codes.
+
+
+If the shipment has been fulfilled by the sellers themselves, they have to collect the  delivery reference from the buyer in order to confirm that they have actually delivered the product. In order to mark a product as fulfilled, the vendor simply has to enter the delivery reference code and mark the order as fulfilled if the reference code is valid. Only when an order is mark as fulfilled will a vendor receive payment for their order. So the delivery reference code is very crucial and sensitive to completing the order cycle.
+Once the vendor has marked the product as fulfilled, the buyer will get a notification that their products has been delivered successfully and the vendor will get a notification that they have successfully fulfilled an order. 
+
+
+To make the work easier for vendors, instead of clicking each order, entering the reference and fulfilling them, there should be a page where they can fulfill orders. On this page, they should be able to enter the delivery reference code which will display the single order they want to fulfill. By this, they can utilize this page to redeem all their orders. 
+All orders that have been marked as fulfilled won't appear in the shipment page anymore. Rather they should appear on this fulfillment page where a vendor can view all the orders they have successfully fulfilled and redeemed. We can even display how much they have earned/redeemed so far.
+
+
+Furthermore, if it is Provinear delivering the order. We still have to mark the product has been fulfilled. The Provinear riders have to get the delivery reference code to Provinear and we can conveniently mark the order as fulfilled for the vendor. Obviously we'll send notifications to vendors and the buyers to this effect. 
+
+
+If the delivery flow or any other requirement is not clear enough and you need more clarifications, please don't hesitate to reach out to me.
+
+
+🆕 PS
+Logistics is something that I've been thinking about since morning and could not just wrap my head around it completely. There are different cases of it
+* an order with a single product 
+* an order with multiple products in it, in most cases from different vendors.
+* an order that may not even need delivery; whereby the seller is not far from the buyer at all.
+
+
+The first scenario is simple, the rider picks it up from the seller and delivers it to the buyer
+
+
+The third scenario, we can't even use riders here as it will even prolong the delivery time. The order can be delivered by trekking over a short distance. We can employ students as couriers here (but we need to perform some due diligence).
+
+
+For the second scenario, we will need to employ route optimization to know the route a rider can take to pick up the orders in linear stops until he/she gathers it all and delivers it to the seller. I believe some logistics services have this covered but like stops might increase the cost, which is inevitable. 
+
+
+We can also give buyers the option to pick up their product at the seller's shop regardless of whether they have multiple orders. 
+
+
+Then later on we can have pickup stations in several places for buyers to pick up all their goods but this means that sellers will be the ones to bring them.
+
+
+If we want to handle logistics for sellers, I'd say let's just try things out and see how it goes.
+6.2.4        MODERATOR ACTOR
+Requirement Acronym: MOD-RQ
+Description
+A Moderator is any user with an account with Provinear that creates and manages marketplaces, they control and set how people transact in the marketplace.
+Requirements
+1. A moderator is generally in charge of the Market Places they create
+2. A moderator can configure a marketplace. They should be able to set the rules of a marketplace.
+3. A moderator should be able to host events on the marketplace
+4. A moderator should be able to generate invite urls to a marketplace.
+5. A moderator should be able to directly add sellers to the marketplaces (and buyers for a ‘closed’ marketplace)
+
+
+
+
+
+
+
+
+
+
+6.2.5        MARKETPLACE CONCEPT
+Requirement Acronym: MAR-RQ
+Description
+A MarketPlace in a virtual space (virtual market) and it implies a group of sellers with something in common. This could be their location or the type of products/services they offer. A MarketPlace is a virtual space featuring different sellers offering some specific kinds of services as defined by the moderator (creator of the MarketPlace). Provinear’s Market Place be:
+* Geo Bound: A geographically bounded marketplace is only opened to sellers within the same defined geographical location.
+* Service bound: A service or product bounded marketplace is only opened to sellers that offer some specifically defined products/services by the moderator. This means sellers can be from any geographical location in as much as they are offering services required on the Market Place as defined by the moderator.
+
+
+Requirements
+1. Any user with an account on Provinear should be able to create a marketplace. This user will be referred to as the moderator of the marketplace.
+2. Creation of a market place will be subjected to evaluation by the Provinear Team before it eventually gets created and activated.
+3. A marketplace will bear a unique url which can be followed by users to explore the market place.
+4. Marketplaces will be ranked by level, starting out from the lowest level, and growing up. This level will be used to rank the marketplace in search results. The level of a marketplace is determined by the level of economic activities going on in the marketplace. Variables used in determining the level include the number of sellers on the marketplace, sales made in the marketplace, number of member buyers etc.
+Marketplace Configurations
+Marketplaces can assume different configurations which include visibility, accessibility etc.
+* Visibility: This a configuration on the marketplace which determines if the marketplace is opened to every user or closed. Marketplaces can be open (public) or closed (private). While any user and buyers can join and explore Open marketplace, Closed marketplace will be strictly based on invitation (i.e as buyer or seller you have to be a member either directly added by the moderator or invited before you can explore or sell products on the marketplace).
+* Accessibility: Marketplaces can be configured to be only opened for economic activities or operations on some specific days. The marketplace will be accessible and explorable on these selected days and will be inactive on other days.
+A market place is managed by the one who created it.
+
+
+6.2.6        PRODUCT EXPLORATION
+Description
+Product Exploration is the user experience Provinear is giving to users in exploring services in marketplaces and Shops and as well as their search results.
+The exploration of services in user searches will come in two different user views and users will have the option to switch between the views.
+* List View: This will be the default view where the returned search results are displayed in a list showing all the required information of the products listed. Information like the marketplace the product is found, the level of the marketplace, rank of the seller, the star rating on the product itself, picture of the product etc.
+* Map View: This will be an alternate view of the exploration whereby search results are displayed on the map showcasing the proximity of the sellers of those products (bounded by the geographical definition of the marketplace) to the user exploring. Each seller is shown as a drop pin on the map where the physical location of the seller is. Upon hovering and/or clicking on this drop pin, information on the product (as is in the list view) is displayed in a popup.
+
+
+6.2.7        ESCROW SERVICE
+Description
+Escrow services is an inherent feature of Provinear and it is used during the ordering of a product. Here is how it works.
+
+
+When a buyer visits a product page and places an order for a product (BUY-RQ-5). They are directed to the payment page to make payment for their order (BUY-RQ-7). After a successful payment, the payment is held by Provinear Escrow Service and the seller is alerted of a new order (SELL-RQ-8).  When the seller is ready to deliver the product, they set the status of the order to “Ready for delivery”, if the mode of delivery chosen by the buyer is “delivery”. Else, if the mode of delivery is “Pick up”, the seller sets the status to “Ready for pick up”, if it is indeed ready for pickup.
+
+
+When the buyer delivers the product they set the status of the order to “delivered”, the buyer receives an alert to confirm this, after confirmation and satisfactory delivery of product, the money is released into the seller's wallet. This marks the end of an order.
+
+
+Escrow Appeal
+If there is something wrong, maybe the order is exceeding the expected period of delivery or the buyer is not satisfied with the delivery or the seller claims to have delivered and the buyer is yet to receive the order. Any of the party can open an appeal on the order for the Provinear Support Team to interfere.
+
+
+6.2.8        PURCHASE SCORE
+Work in Progress
+
+
+6.2.9        SHOP
+Requirement Acronym: SHO-RQ
+Description
+Shop is yet another essential feature of Provinear, it houses the services and products that a Provider offers. A user has to set up a seller’s profile before they can set up a shop.
+Classification of Shop
+Shops that sellers own on Provinear can be of two categories
+* RETAIL Shop: Retail shops deal with the sales of goods/commodities for use for consumption by the customer
+* SERVICE Shop: Services shops offers services which as opposed to sales of goods
+While they are both regarded as Service Providers, it is important to make a clear distinction between the two but they are not disjoint, as the configuration of shops for sellers will be based on these. By not disjoint, it means a seller can create a single shop and add pages that show the services they render and also add another page that lists the products they render (if their service sells any products).
+
+
+Configuring a Shop
+A shop is like a house for everything that a particular service provider does. For example, a barber is a service provider who may also sell hair products. In order to configure his shop, he needs to add both service rendered and also lists his products. Therefore in a shop, a service provider can either add a service page to a shop and/or a product page that lists their products.
+
+
+Requirement
+1. A shop should have unique url that can be shared to customers to explore their services and products
+2. A shop should be configured in a step by step process.
+3. A shop should have either a page for services rendered by the sellers and/or a page for products sold by the sellers.
+4. A service provider must be able to add a service page to a shop
+5. A service provider must be able to add a product page to a shop
+6. A shop should get an overall rating from the ratings gotten from the products and services.
+7. A shop should have the necessary description of services or products rendered.
+8. NON-FUNCTIONAL REQUIREMENTS
+All non-functional requirements (NFRs) of the project, including such things as features, system behavior, and project characteristics that relate to user experience. 
+	ID
+	Requirement
+	NFR 1
+	Users should be able to explore services on Provinear through their search query in natural language, for example “Barbers in my area”, “Blue bags with gold handle”, “Culinary services about 2kms from here”, etc.]
+	NFR 2
+	Providers should be able to set up shop in a easy step by step process
+	NFR 3
+	The system should respond to user actions within 2 seconds for optimal user experience.
+	NFR 4
+	The system should handle a growing user base without significant performance degradation.
+	NFR 5
+	Support concurrent user interactions with minimal system slowdown.
+	NFR 6
+	Implement robust access controls to ensure only authorized users have access to specific functionalities.
+	NFR 7
+	Aim for at least 99.9% system uptime for continuous availability.
+	NFR 8
+	Regularly back up data and implement effective recovery processes in case of system failures.
+	NFR 9
+	Design an intuitive and user-friendly interface for easy navigation and understanding.
+	NFR 10
+	Develop clean, modular, and well-documented code to facilitate future updates and maintenance.
+	NFR 11
+	Ensure the application functions seamlessly across various devices and operating systems.
+	NF R 12
+	Support popular web browsers (Chrome, Firefox, Safari, etc.) for web-based access.
+	9. ASSUMPTIONS
+A detailed list of assumptions (project factors believed to be true but that haven’t been confirmed) to better determine the project’s risk factors.
+1. User Adoption: Users will readily adopt and use the Provinear application once launched.
+2. Vendor Participation: Sufficient vendors will be interested in joining Provinear to offer their services.
+3. Internet Connectivity: Users and vendors have reliable internet connectivity for accessing the application.
+4. User Preferences: Users prefer a streamlined and easy-to-use platform for finding local services.
+5. Timely Updates: Users and vendors will promptly update their profiles and service information.
+
+
+WIPS
+10. FINANCIAL STATEMENTS
+Detail the financial impact of the project on the company’s balance sheet for the projected duration of the project. 
+11. COST AND BENEFIT
+Provide a detailed list of all costs involved in the proposed project, along with a cost-benefit analysis. Include proposed or projected funding source details for the project’s expenses.
+12. RESOURCES
+Provide details of the resources required for the project. Include personnel needs, hardware, software, equipment, office space, etc.
+13.  SCHEDULE, TIMELINE, AND DEADLINES
+Provide a detailed list of the project’s schedule-specific timelines, deadlines, milestones, etc.
+
+
+14. GLOSSARY
+For easy reference, enter any terms, abbreviations, and/or acronyms that were included in this document. 
+	Term / Abbreviation 
+	Explanation
+	Provinear
+	The name of the application being developed, aiming to connect users with local service providers.
+	Vendor
+	An individual or business offering services or products through the Provinear platform.
+	User/Consumer
+	Refers to an individual utilizing the Provinear application to find local services.
+	Service Provider
+	An entity or person offering specific services listed on the Provinear platform.
+	Location-Based Search
+	A functionality allowing users to find services based on their geographical proximity.
+	MVP (Minimum Viable Product)
+	The initial version of the application with essential features, allowing for iterative development.
+	
+
+15.   REFERENCES
+Links to all the resources (websites, documents, etc.) that were referenced in this document. 
+	Name
+	Location
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+16. APPENDIX
+Include any additional information for reference, including process details, analysis results, studies, third-party examples, etc.
+________________
+
+
+
+
+
+
+DISCLAIMER
+
+
+This disclaimer serves to provide information to users and stakeholders regarding the Provinear application. The information provided within the Provinear application is aimed at accuracy, yet users are encouraged to verify critical information independently. Provinear acts as a platform connecting users to service providers. We do not validate or endorse individual vendors' services or products. Users should conduct their due diligence before engaging with any service provider introduced through the application.
+
+
+Users are solely responsible for interactions with service providers facilitated by Provinear. Any disputes or losses arising from user interactions are not the liability of Provinear. The application is intended for personal use; commercial use or unauthorized modification is prohibited.
+
+
+This disclaimer may be updated periodically without notice. For inquiries or concerns about this disclaimer or the application, please contact dynamo.healse@gmail.com.
+
+
+	
+
+
+
+Provinear’s Agile Business Requirement
