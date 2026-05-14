@@ -323,7 +323,7 @@ function Index() {
                 d: "A simpler way to come across thoughtful products made around you.",
                 t: "Local providers",
                 img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=900&q=80",
-                cls: "lg:col-span-3",
+                cls: "lg:col-span-5",
               },
               // {
               //   n: "More personal discovery",
