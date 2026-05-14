@@ -1,166 +1,137 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Nav } from "@/components/site/Nav";
-import { Footer } from "@/components/site/Footer";
-import { MapVisual } from "@/components/site/MapVisual";
+import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import {
-  Search,
-  MapPin,
-  Sparkles,
   ArrowRight,
-  Star,
-  ShieldCheck,
-  Zap,
-  Heart,
-  ShoppingCart,
   CheckCircle2,
-  Users,
   Clock,
+  MapPin,
   MessageCircle,
+  ShieldCheck,
+  Sparkles,
+  Star,
+  Users,
+  Zap,
 } from "lucide-react";
+
+import { EarlyAccessModal } from "@/components/site/EarlyAccessModal";
+import { Footer } from "@/components/site/Footer";
+import { MapVisual } from "@/components/site/MapVisual";
+import { Nav } from "@/components/site/Nav";
 
 export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Provinear | Everything you need, right around the corner." },
+      { title: "Provinear | Find better local options." },
       {
         name: "description",
         content:
-          "Stop searching far. Start discovering near. Provinear is the easiest way to buy and sell within your neighborhood.",
+          "Provinear is a simpler way to find local providers, products, and services. Join early as a customer or provider.",
       },
     ],
   }),
 });
 
 function Index() {
-  const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState(0);
-  const navigate = useNavigate();
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      navigate({ to: "/search", search: { q: searchQuery } });
-    }
-  };
+  const [isEarlyAccessOpen, setIsEarlyAccessOpen] = useState(false);
 
   return (
-    <div className="relative min-h-screen bg-[#FDFCFB] text-foreground overflow-x-hidden selection:bg-primary/20 font-sans">
-      <Nav />
+    <div className="relative min-h-screen overflow-x-hidden bg-[#FDFCFB] font-sans text-foreground selection:bg-primary/20">
+      <Nav onJoinClick={() => setIsEarlyAccessOpen(true)} />
+      <EarlyAccessModal
+        open={isEarlyAccessOpen}
+        onOpenChange={setIsEarlyAccessOpen}
+      />
 
-      {/* HERO SECTION: THE HOOK */}
-      <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
-        {/* Abstract Premium Background */}
-        <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/3 w-[1000px] h-[1000px] bg-[radial-gradient(ellipse_at_center,var(--primary-soft)_0%,transparent_70%)] opacity-60 pointer-events-none mix-blend-multiply" />
-        <div className="absolute top-40 left-0 -translate-x-1/2 w-[800px] h-[800px] bg-[radial-gradient(ellipse_at_center,oklch(0.95_0.02_70)_0%,transparent_70%)] opacity-50 pointer-events-none mix-blend-multiply" />
+      <section className="relative overflow-hidden pt-32 pb-20 lg:pt-48 lg:pb-32">
+        <div className="pointer-events-none absolute top-0 right-0 h-[1000px] w-[1000px] translate-x-1/3 -translate-y-1/2 bg-[radial-gradient(ellipse_at_center,var(--primary-soft)_0%,transparent_70%)] opacity-60 mix-blend-multiply" />
+        <div className="pointer-events-none absolute top-40 left-0 h-[800px] w-[800px] -translate-x-1/2 bg-[radial-gradient(ellipse_at_center,oklch(0.95_0.02_70)_0%,transparent_70%)] opacity-50 mix-blend-multiply" />
 
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-10 grid lg:grid-cols-12 gap-16 items-center">
-          <div className="lg:col-span-7 z-10">
-            <div className="inline-flex items-center gap-2 rounded-full bg-white border border-primary/10 px-4 py-2 text-xs font-bold text-primary mb-8 shadow-sm animate-in fade-in slide-in-from-bottom-4 duration-700">
+        <div className="relative mx-auto grid max-w-7xl items-center gap-16 px-6 lg:grid-cols-12 lg:px-10">
+          <div className="z-10 lg:col-span-7">
+            <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-primary/10 bg-white px-4 py-2 text-xs font-bold text-primary shadow-sm animate-in fade-in slide-in-from-bottom-4 duration-700">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary"></span>
               </span>
-              The neighborhood marketplace is live
+              Early access
             </div>
 
-            {/* Headline < 12 words, Formula: Help [audience] achieve [outcome] without [pain point] */}
-            <h1 className="font-display text-5xl md:text-7xl lg:text-[5rem] leading-[1.05] text-ink tracking-tight animate-in fade-in slide-in-from-bottom-6 duration-1000">
-              Get exactly what you need locally, <br />
+            <h1 className="font-display text-5xl leading-[1.05] tracking-tight text-ink animate-in fade-in slide-in-from-bottom-6 duration-1000 md:text-7xl lg:text-[5rem]">
+              Find good things nearby, <br />
               <span className="text-primary italic">
-                without the shipping wait.
+                without the usual stress.
               </span>
             </h1>
 
-            <p className="mt-6 text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-2xl animate-in fade-in slide-in-from-bottom-8 duration-1000">
-              Skip the endless searching and word-of-mouth. Provinear instantly
-              connects you with the best products and services hidden right in
-              your area.
+            <p className="mt-6 max-w-2xl text-xl leading-relaxed text-muted-foreground animate-in fade-in slide-in-from-bottom-8 duration-1000 md:text-2xl">
+              Provinear is a new way to find local providers, services, and
+              products around you. Early access
+              is now open.
             </p>
 
-            <form
-              onSubmit={handleSearch}
-              className="mt-10 max-w-2xl group animate-in fade-in slide-in-from-bottom-10 duration-1000"
-            >
-              <div className="relative flex items-center p-3 rounded-full bg-white border border-border/60 shadow-elevated focus-within:ring-4 focus-within:ring-primary/20 transition-all">
-                <div className="pl-6 pr-4 text-muted-foreground group-focus-within:text-primary transition-colors">
-                  <Search className="h-8 w-8" />
-                </div>
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="What are you looking for today?"
-                  className="w-full h-16 bg-transparent focus:outline-none text-2xl placeholder:text-muted-foreground/60"
-                />
-                <button
-                  type="submit"
-                  className="shrink-0 px-10 h-16 rounded-full bg-primary text-primary-foreground font-bold hover:bg-ink transition-all shadow-lg active:scale-95 text-xl"
-                >
-                  Find it near me
-                </button>
-              </div>
-
-              {/* Trust Indicators right below search */}
-              <div className="mt-6 flex flex-wrap items-center gap-4 text-sm font-medium pl-4">
-                <div className="flex -space-x-2">
-                  {[
-                    "https://i.pravatar.cc/100?img=1",
-                    "https://i.pravatar.cc/100?img=2",
-                    "https://i.pravatar.cc/100?img=3",
-                    "https://i.pravatar.cc/100?img=4",
-                  ].map((img, i) => (
-                    <img
-                      key={i}
-                      src={img}
-                      alt="User"
-                      className="w-8 h-8 rounded-full border-2 border-[#FDFCFB]"
-                    />
-                  ))}
-                </div>
-                <div className="text-muted-foreground">
-                  Joined by <span className="text-ink font-bold">10,000+</span>{" "}
-                  locals discovering what they need.
+            <div className="mt-10 max-w-2xl animate-in fade-in slide-in-from-bottom-10 duration-1000">
+              <div className="rounded-[2rem] border border-border/60 bg-white/92 p-5 shadow-elevated backdrop-blur-xl md:p-6">
+                <p className="text-xs font-bold uppercase tracking-[0.24em] text-primary">
+                  Join early access
+                </p>
+                <h3 className="mt-2 font-display text-2xl leading-tight text-ink md:text-3xl">
+                  Get in before launch.
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground md:text-base">
+                  Join the waitlist as a customer or provider. We&apos;ll let
+                  you know when your side opens first.
+                </p>
+                <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center">
+                  <button
+                    type="button"
+                    onClick={() => setIsEarlyAccessOpen(true)}
+                    className="inline-flex h-14 items-center justify-center rounded-full bg-primary px-8 text-base font-bold text-primary-foreground shadow-lg transition-all hover:bg-ink"
+                  >
+                    Join early access
+                  </button>
+                  <p className="text-sm text-muted-foreground">
+                    Quick signup. Just email and what you want to use it for.
+                  </p>
                 </div>
               </div>
-            </form>
+            </div>
           </div>
 
-          <div className="lg:col-span-5 relative hidden lg:block">
+          <div className="relative hidden lg:col-span-5 lg:block">
             <div className="relative z-10 scale-110 drop-shadow-2xl">
               <MapVisual />
             </div>
-            {/* Interactive Floating Badges */}
-            <div className="absolute top-10 -left-10 z-20 bg-white/80 backdrop-blur-xl border border-white rounded-3xl p-4 shadow-elevated animate-float-y">
+            <div className="absolute top-10 -left-10 z-20 rounded-3xl border border-white bg-white/80 p-4 shadow-elevated backdrop-blur-xl animate-float-y">
               <div className="flex items-center gap-3">
-                <div className="h-12 w-12 rounded-full bg-green-500/10 flex items-center justify-center text-green-600">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-500/10 text-green-600">
                   <ShieldCheck className="h-6 w-6" />
                 </div>
                 <div>
                   <div className="text-sm font-bold text-ink">
-                    Escrow Protected
+                    Optional escrow
                   </div>
-                  <div className="text-xs text-muted-foreground font-medium">
-                    Funds held securely
+                  <div className="text-xs font-medium text-muted-foreground">
+                    Providers can choose it and earn the trust badge
                   </div>
                 </div>
               </div>
             </div>
             <div
-              className="absolute bottom-20 -right-8 z-20 bg-white/80 backdrop-blur-xl border border-white rounded-3xl p-4 shadow-elevated animate-float-y"
+              className="absolute right-[-2rem] bottom-20 z-20 rounded-3xl border border-white bg-white/80 p-4 shadow-elevated backdrop-blur-xl animate-float-y"
               style={{ animationDelay: "2s" }}
             >
               <div className="flex items-center gap-3">
-                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                   <Zap className="h-6 w-6" />
                 </div>
                 <div>
                   <div className="text-sm font-bold text-ink">
-                    Instant Delivery
+                    Built for your area
                   </div>
-                  <div className="text-xs text-muted-foreground font-medium">
-                    Within 30 minutes
+                  <div className="text-xs font-medium text-muted-foreground">
+                    Find product or services closer to you
                   </div>
                 </div>
               </div>
@@ -169,35 +140,34 @@ function Index() {
         </div>
       </section>
 
-      {/* EMOTIONAL BENEFITS STRIP */}
-      <section className="py-16 bg-white border-y border-border/40 relative z-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10 grid grid-cols-1 md:grid-cols-3 gap-10">
+      <section className="relative z-20 border-y border-border/40 bg-white py-16">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 lg:px-10 md:grid-cols-3">
           {[
             {
-              t: "Always Within Reach",
-              d: "Never worry about distant vendors. Find exactly what you need, right where you are.",
+              t: "Made for nearby",
+              d: "Provinear is built around the people, providers, products, and services close to you.",
               i: MapPin,
             },
             {
-              t: "Shop With Confidence",
-              d: "Your money stays perfectly safe in Escrow until the product is securely in your hands.",
+              t: "Simple and clear",
+              d: "We want it to be easy to trust what you find and easy to know what to do next.",
               i: ShieldCheck,
             },
             {
-              t: "Real Human Connection",
-              d: "Speak directly to the hands that craft your products and provide your services.",
+              t: "Real people first",
+              d: "This is about real local people helping with real needs, not just more listings on a screen.",
               i: MessageCircle,
             },
-          ].map((item, idx) => (
-            <div key={item.t} className="flex gap-5 group">
-              <div className="h-14 w-14 shrink-0 rounded-2xl bg-primary/5 flex items-center justify-center text-primary group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all duration-300">
+          ].map((item) => (
+            <div key={item.t} className="group flex gap-5">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-primary/5 text-primary transition-all duration-300 group-hover:scale-110 group-hover:bg-primary group-hover:text-white">
                 <item.i className="h-7 w-7" />
               </div>
               <div>
-                <div className="font-display text-2xl text-ink mb-2">
+                <div className="mb-2 font-display text-2xl text-ink">
                   {item.t}
                 </div>
-                <div className="text-base text-muted-foreground leading-relaxed">
+                <div className="text-base leading-relaxed text-muted-foreground">
                   {item.d}
                 </div>
               </div>
@@ -206,60 +176,63 @@ function Index() {
         </div>
       </section>
 
-      {/* CURIOSITY INTRO & CATEGORIES */}
       <section
         id="categories"
-        className="py-24 bg-[#FDFCFB] relative overflow-hidden"
+        className="relative overflow-hidden bg-[#FDFCFB] py-24"
       >
-        <div className="mx-auto max-w-7xl px-6 lg:px-10 relative z-10">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-10">
+          <div className="mb-16 flex flex-col justify-between gap-8 md:flex-row md:items-end">
             <div className="max-w-3xl">
-              <span className="text-primary font-bold uppercase tracking-[0.2em] text-xs flex items-center gap-2 mb-4">
-                <Sparkles className="h-4 w-4" /> Uncover The Unseen
+              <span className="mb-4 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-primary">
+                <Sparkles className="h-4 w-4" /> A first look
               </span>
-              <h2 className="font-display text-4xl md:text-6xl text-ink leading-tight mb-6">
-                Discover local gems, <br />
+              <h2 className="mb-6 font-display text-4xl leading-tight text-ink md:text-6xl">
+                Things people miss today <br />
                 <span className="text-primary italic">
-                  without word-of-mouth.
+                  should be easier to find.
                 </span>
               </h2>
               <p className="text-xl text-muted-foreground">
-                Find exactly what you need nearby in seconds. No more asking
-                around or hoping to stumble upon the right service.
+                These are the kinds of local finds Provinear is being built to
+                show better, from product providers and service providers.
               </p>
             </div>
-            <button className="h-14 px-8 rounded-full border-2 border-border hover:border-primary hover:text-primary font-bold transition-all shrink-0 bg-white shadow-sm">
-              Explore all categories
+            <button
+              type="button"
+              onClick={() => setIsEarlyAccessOpen(true)}
+              className="h-14 shrink-0 rounded-full border-2 border-border bg-white px-8 font-bold transition-all hover:border-primary hover:text-primary hover:shadow-sm inline-flex items-center"
+            >
+              Join early access
             </button>
           </div>
 
-          <div className="flex flex-col lg:flex-row gap-4 h-[600px] w-full">
+          <div className="flex h-[600px] w-full flex-col gap-4 lg:flex-row">
             {[
               {
-                n: "The Baker's Corner",
+                n: "Morning Tables",
                 img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80",
-                d: "Fresh & Warm",
+                d: "Freshly made nearby",
               },
               {
-                n: "Artisan Crafts",
+                n: "Handmade Objects",
                 img: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=800&q=80",
-                d: "Handmade Locally",
+                d: "Craft with a signature",
               },
               {
-                n: "Home Services",
+                n: "Skilled Home Help",
                 img: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80",
-                d: "Trusted Experts",
+                d: "Useful, trusted, close",
               },
               {
-                n: "Fashion & Style",
+                n: "Independent Style",
                 img: "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?auto=format&fit=crop&w=800&q=80",
-                d: "Tailored For You",
+                d: "Made with personality",
               },
             ].map((cat, idx) => (
               <div
                 key={cat.n}
                 onMouseEnter={() => setActiveCategory(idx)}
-                className={`group relative overflow-hidden rounded-[2rem] lg:rounded-[3rem] transition-all duration-700 ease-in-out cursor-pointer shadow-soft hover:shadow-elevated ${
+                className={`group relative cursor-pointer overflow-hidden rounded-[2rem] shadow-soft transition-all duration-700 ease-in-out hover:shadow-elevated lg:rounded-[3rem] ${
                   activeCategory === idx
                     ? "flex-[4] lg:flex-[3]"
                     : "flex-1 hover:flex-[1.2]"
@@ -268,23 +241,33 @@ function Index() {
                 <img
                   src={cat.img}
                   alt={cat.n}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105"
                 />
-                <div className={`absolute inset-0 bg-gradient-to-t transition-opacity duration-700 ${
-                  activeCategory === idx 
-                    ? "from-ink/90 via-ink/20 to-transparent opacity-90" 
-                    : "from-ink/90 via-ink/50 to-ink/20 opacity-80"
-                }`} />
-                <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-[2rem] lg:rounded-[3rem]" />
+                <div
+                  className={`absolute inset-0 bg-gradient-to-t transition-opacity duration-700 ${
+                    activeCategory === idx
+                      ? "from-ink/90 via-ink/20 to-transparent opacity-90"
+                      : "from-ink/90 via-ink/50 to-ink/20 opacity-80"
+                  }`}
+                />
+                <div className="absolute inset-0 rounded-[2rem] ring-1 ring-inset ring-white/10 lg:rounded-[3rem]" />
                 <div className="absolute bottom-8 left-8 right-8">
-                  <p className={`text-primary-soft text-xs font-bold tracking-widest uppercase mb-2 transition-all duration-500 delay-100 ${
-                    activeCategory === idx ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0 lg:hidden"
-                  }`}>
+                  <p
+                    className={`mb-2 text-xs font-bold uppercase tracking-widest text-primary-soft transition-all duration-500 delay-100 ${
+                      activeCategory === idx
+                        ? "translate-y-0 opacity-100"
+                        : "translate-y-4 opacity-0 lg:hidden"
+                    }`}
+                  >
                     {cat.d}
                   </p>
-                  <h3 className={`text-white font-display leading-tight transition-all duration-500 ${
-                    activeCategory === idx ? "text-4xl lg:text-5xl" : "text-2xl lg:rotate-[-90deg] lg:origin-bottom-left lg:absolute lg:bottom-12 lg:left-12 lg:whitespace-nowrap"
-                  }`}>
+                  <h3
+                    className={`font-display leading-tight text-white transition-all duration-500 ${
+                      activeCategory === idx
+                        ? "text-4xl lg:text-5xl"
+                        : "text-2xl lg:absolute lg:bottom-12 lg:left-12 lg:origin-bottom-left lg:rotate-[-90deg] lg:whitespace-nowrap"
+                    }`}
+                  >
                     {cat.n}
                   </h3>
                 </div>
@@ -294,177 +277,258 @@ function Index() {
         </div>
       </section>
 
-      {/* THE PULSE: NEARBY ACTIVITY (Premium Product Display) */}
-      <section id="nearby" className="py-24 bg-white relative">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="text-center max-w-3xl mx-auto mb-20">
-            <span className="text-primary font-bold uppercase tracking-[0.2em] text-xs">
-              Live Feed
-            </span>
-            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-ink mt-4 leading-tight">
-              Extraordinary finds, <br /> just streets away.
+      <section id="nearby" className="relative overflow-hidden bg-white py-24">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(124,58,237,0.06),transparent_35%)]" />
+
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
+          <div className="mb-16 max-w-3xl">
+      <span className="mb-4 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.22em] text-primary">
+        <Sparkles className="h-4 w-4" />
+        Preview experience
+      </span>
+
+            <h2 className="font-display text-4xl leading-tight text-ink md:text-6xl">
+              A calmer way to discover
+              <br />
+              <span className="text-primary italic">
+          products and services nearby.
+        </span>
             </h2>
+
+            <p className="mt-6 max-w-2xl text-xl leading-relaxed text-muted-foreground">
+              We&apos;re designing Provinear to feel less like scrolling through
+              endless listings and more like finding genuinely useful local people,
+              products, and services around you.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:grid-rows-2">
             {[
               {
-                n: "Artisan Sourdough",
-                p: "₦3,500",
-                d: "0.8km",
-                r: 4.9,
-                s: "The Bread Lab",
-                img: "https://images.unsplash.com/photo-1585478259715-876a6a81fc08?auto=format&fit=crop&w=600&q=80",
+                n: "Freshly baked nearby",
+                d: "Imagine discovering local food spots and makers without digging through clutter.",
+                t: "Preview concept",
+                img: "https://images.unsplash.com/photo-1585478259715-876a6a81fc08?auto=format&fit=crop&w=1200&q=80",
+                cls: "lg:col-span-7 lg:row-span-2",
               },
               {
-                n: "Custom Denim Jacket",
-                p: "₦25,000",
-                d: "1.2km",
-                r: 4.8,
-                s: "Thread & Ink",
-                img: "https://images.unsplash.com/photo-1542272454315-4c01d7abdf4a?auto=format&fit=crop&w=600&q=80",
+                n: "Helpful skilled services",
+                d: "From repairs to tailoring, we want nearby help to feel easier to find.",
+                t: "Service discovery",
+                img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=900&q=80",
+                cls: "lg:col-span-5",
               },
               {
-                n: "Organic Shea Butter",
-                p: "₦4,200",
-                d: "2.5km",
-                r: 5.0,
-                s: "Glow Nature",
-                img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=600&q=80",
+                n: "Independent local products",
+                d: "A simpler way to come across thoughtful products made around you.",
+                t: "Local providers",
+                img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=900&q=80",
+                cls: "lg:col-span-3",
               },
-              {
-                n: "Camera Lens Repair",
-                p: "From ₦15k",
-                d: "3.1km",
-                r: 4.7,
-                s: "Analog Soul",
-                img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=600&q=80",
-              },
-            ].map((prod, i) => (
-              <div
-                key={i}
-                className="group bg-surface rounded-[2.5rem] p-4 border border-border/60 shadow-soft hover:shadow-elevated transition-all duration-500 hover:border-primary/20"
-              >
-                <div className="relative aspect-square rounded-[2rem] overflow-hidden mb-5">
-                  <img
-                    src={prod.img}
-                    alt={prod.n}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute top-4 right-4 h-12 w-12 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-ink hover:text-primary transition-colors shadow-sm cursor-pointer hover:scale-110 active:scale-95">
-                    <Heart className="h-6 w-6" />
+              // {
+              //   n: "More personal discovery",
+              //   d: "Less noise. More useful local finds that actually feel relevant.",
+              //   t: "What we&apos;re building",
+              //   img: "https://images.unsplash.com/photo-1542272454315-4c01d7abdf4a?auto=format&fit=crop&w=900&q=80",
+              //   cls: "lg:col-span-2",
+              // },
+            ].map((item) => (
+                <div
+                    key={item.n}
+                    className={`group relative overflow-hidden rounded-[2.5rem] ${item.cls}`}
+                >
+                  <div className="absolute inset-0">
+                    <img
+                        src={item.img}
+                        alt={item.n}
+                        className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                    />
                   </div>
-                  <div className="absolute bottom-4 left-4 bg-ink/90 backdrop-blur-md text-white px-4 py-2 rounded-full text-xs font-bold shadow-lg flex items-center gap-2">
-                    <MapPin className="h-4 w-4" /> {prod.d}
-                  </div>
-                </div>
 
-                <div className="px-3 pb-3">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-[11px] text-muted-foreground uppercase tracking-widest font-extrabold truncate pr-2">
-                      {prod.s}
-                    </span>
-                    <div className="flex items-center gap-1 text-xs font-bold text-ink shrink-0 bg-warm/60 px-3 py-1 rounded-full">
-                      <Star className="h-3.5 w-3.5 fill-primary text-primary" />
-                      {prod.r}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
+
+                  <div className="absolute inset-0 rounded-[2.5rem] ring-1 ring-inset ring-white/10" />
+
+                  <div className="relative flex h-full flex-col justify-end p-8 lg:p-10">
+                    <div className="mb-4">
+              <span className="inline-flex rounded-full bg-white/10 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-white/80 backdrop-blur-md">
+                {item.t}
+              </span>
                     </div>
-                  </div>
-                  <h3 className="text-2xl font-display text-ink leading-tight mb-5 group-hover:text-primary transition-colors line-clamp-1">
-                    {prod.n}
-                  </h3>
-                  <div className="flex items-center justify-between mt-auto">
-                    <span className="text-3xl font-display text-ink">
-                      {prod.p}
-                    </span>
-                    <button className="h-12 w-12 rounded-full bg-primary/10 text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all active:scale-95">
-                      <ShoppingCart className="h-5 w-5" />
-                    </button>
+
+                    <h3 className="max-w-md font-display text-3xl leading-tight text-white md:text-5xl">
+                      {item.n}
+                    </h3>
+
+                    <p className="mt-4 max-w-md text-base leading-relaxed text-white/75 md:text-lg">
+                      {item.d}
+                    </p>
                   </div>
                 </div>
-              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* COMMUNITY BOARD: THE SOUL */}
+      {/*<section id="nearby" className="relative bg-white py-24">*/}
+      {/*  <div className="mx-auto max-w-7xl px-6 lg:px-10">*/}
+      {/*    <div className="mx-auto mb-20 max-w-3xl text-center">*/}
+      {/*      <span className="text-xs font-bold uppercase tracking-[0.2em] text-primary">*/}
+      {/*        Preview feed*/}
+      {/*      </span>*/}
+      {/*      <h2 className="mt-4 font-display text-4xl leading-tight text-ink md:text-5xl lg:text-6xl">*/}
+      {/*        A quick look at what <br /> you could find nearby.*/}
+      {/*      </h2>*/}
+      {/*    </div>*/}
+
+      {/*    <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">*/}
+      {/*      {[*/}
+      {/*        {*/}
+      {/*          n: "Wildflower sourdough",*/}
+      {/*          p: "Preview only",*/}
+      {/*          d: "Baked this morning",*/}
+      {/*          r: "Fresh bread from a local provider",*/}
+      {/*          s: "Local provider",*/}
+      {/*          img: "https://images.unsplash.com/photo-1585478259715-876a6a81fc08?auto=format&fit=crop&w=600&q=80",*/}
+      {/*        },*/}
+      {/*        {*/}
+      {/*          n: "Custom denim work",*/}
+      {/*          p: "Preview only",*/}
+      {/*          d: "Made to order",*/}
+      {/*          r: "Custom work from a nearby provider",*/}
+      {/*          s: "Local provider",*/}
+      {/*          img: "https://images.unsplash.com/photo-1542272454315-4c01d7abdf4a?auto=format&fit=crop&w=600&q=80",*/}
+      {/*        },*/}
+      {/*        {*/}
+      {/*          n: "Botanical body care",*/}
+      {/*          p: "Preview only",*/}
+      {/*          d: "Thoughtful ingredients",*/}
+      {/*          r: "Care products from an independent provider",*/}
+      {/*          s: "Local provider",*/}
+      {/*          img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=600&q=80",*/}
+      {/*        },*/}
+      {/*        {*/}
+      {/*          n: "Precision camera repair",*/}
+      {/*          p: "Preview only",*/}
+      {/*          d: "Skilled hands nearby",*/}
+      {/*          r: "Repair help from a trusted provider",*/}
+      {/*          s: "Service provider",*/}
+      {/*          img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=600&q=80",*/}
+      {/*        },*/}
+      {/*      ].map((prod) => (*/}
+      {/*        <div*/}
+      {/*          key={prod.n}*/}
+      {/*          className="group rounded-[2.5rem] border border-border/60 bg-surface p-4 shadow-soft transition-all duration-500 hover:border-primary/20 hover:shadow-elevated"*/}
+      {/*        >*/}
+      {/*          <div className="relative mb-5 aspect-square overflow-hidden rounded-[2rem]">*/}
+      {/*            <img*/}
+      {/*              src={prod.img}*/}
+      {/*              alt={prod.n}*/}
+      {/*              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"*/}
+      {/*            />*/}
+      {/*            <div className="absolute top-4 right-4 rounded-full bg-white/90 px-4 py-2 text-[11px] font-bold uppercase tracking-widest text-ink shadow-sm backdrop-blur-md">*/}
+      {/*              {prod.p}*/}
+      {/*            </div>*/}
+      {/*            <div className="absolute bottom-4 left-4 rounded-full bg-ink/90 px-4 py-2 text-xs font-bold text-white shadow-lg backdrop-blur-md flex items-center gap-2">*/}
+      {/*              <MapPin className="h-4 w-4" /> {prod.d}*/}
+      {/*            </div>*/}
+      {/*          </div>*/}
+
+      {/*          <div className="px-3 pb-3">*/}
+      {/*            <div className="mb-3 flex items-center justify-between">*/}
+      {/*              <span className="truncate pr-2 text-[11px] font-extrabold uppercase tracking-widest text-muted-foreground">*/}
+      {/*                {prod.s}*/}
+      {/*              </span>*/}
+      {/*              <div className="shrink-0 rounded-full bg-warm/60 px-3 py-1 text-xs font-bold text-ink">*/}
+      {/*                Preview*/}
+      {/*              </div>*/}
+      {/*            </div>*/}
+      {/*            <h3 className="mb-3 line-clamp-1 text-2xl font-display leading-tight text-ink transition-colors group-hover:text-primary">*/}
+      {/*              {prod.n}*/}
+      {/*            </h3>*/}
+      {/*            <p className="min-h-12 text-sm leading-relaxed text-muted-foreground">*/}
+      {/*              {prod.r}*/}
+      {/*            </p>*/}
+      {/*          </div>*/}
+      {/*        </div>*/}
+      {/*      ))}*/}
+      {/*    </div>*/}
+      {/*  </div>*/}
+      {/*</section>*/}
+
       <section
         id="board"
-        className="py-24 bg-ink text-white relative overflow-hidden"
+        className="relative overflow-hidden bg-ink py-24 text-white"
       >
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[radial-gradient(ellipse_at_center,var(--primary)_0%,transparent_70%)] opacity-30 mix-blend-screen pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[radial-gradient(ellipse_at_center,var(--primary-glow)_0%,transparent_70%)] opacity-20 mix-blend-screen pointer-events-none" />
+        <div className="pointer-events-none absolute top-0 right-0 h-[800px] w-[800px] bg-[radial-gradient(ellipse_at_center,var(--primary)_0%,transparent_70%)] opacity-30 mix-blend-screen" />
+        <div className="pointer-events-none absolute bottom-0 left-0 h-[600px] w-[600px] bg-[radial-gradient(ellipse_at_center,var(--primary-glow)_0%,transparent_70%)] opacity-20 mix-blend-screen" />
 
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-10 grid lg:grid-cols-2 gap-20 items-center">
+        <div className="relative mx-auto grid max-w-7xl items-center gap-20 px-6 lg:grid-cols-2 lg:px-10">
           <div>
-            <span className="text-primary-soft font-bold uppercase tracking-[0.2em] text-xs flex items-center gap-2 mb-4">
-              <Users className="h-4 w-4" /> User Request Board
+            <span className="mb-4 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-primary-soft">
+              <Users className="h-4 w-4" /> What to expect
             </span>
-            <h2 className="font-display text-5xl md:text-6xl lg:text-7xl leading-tight mt-4 mb-8">
-              Ask, and you <br /> shall receive.
+            <h2 className="mt-4 mb-8 font-display text-5xl leading-tight md:text-6xl lg:text-7xl">
+              Ask once. Hear back <br /> from people nearby.
             </h2>
-            <p className="text-xl text-white/70 leading-relaxed mb-10 max-w-lg">
-              Can't find it nearby? Just ask. Local pros are ready to help. Post
-              a request and watch the offers roll in.
+            <p className="mb-10 max-w-lg text-xl leading-relaxed text-white/70">
+              When Provinear opens, you should be able to ask for what you need
+              and hear from nearby providers who can actually help.
             </p>
-            <div className="flex flex-wrap gap-5">
-              <button className="h-14 px-8 rounded-full bg-primary text-white font-bold text-lg hover:shadow-[0_0_30px_oklch(0.55_0.18_300_/_0.5)] hover:scale-105 transition-all">
-                Post a Request
-              </button>
-              <button className="h-14 px-8 rounded-full border border-white/20 hover:bg-white/10 font-bold text-lg transition-all">
-                Browse board
-              </button>
-            </div>
+            <button
+              type="button"
+              onClick={() => setIsEarlyAccessOpen(true)}
+              className="inline-flex h-14 items-center rounded-full bg-primary px-8 text-lg font-bold text-white transition-all hover:scale-105 hover:shadow-[0_0_30px_oklch(0.55_0.18_300_/_0.5)]"
+            >
+              Join early access
+            </button>
           </div>
 
           <div className="grid gap-5">
             {[
               {
-                u: "Tunde",
-                t: "Need a plumber for a leak in Bodija",
-                d: "Just now",
-                o: "12 offers",
+                u: "Maya",
+                t: "Looking for a ceramic artist who can make a short run of gifts.",
+                d: "Example request",
               },
               {
-                u: "Sarah",
-                t: "Looking for 50 custom cupcakes for Saturday",
-                d: "2h ago",
-                o: "8 offers",
+                u: "Jon",
+                t: "Need a tailor nearby for a fast alteration before the weekend.",
+                d: "Example request",
               },
               {
-                u: "Ibrahim",
-                t: "Can someone fix a MacBook battery nearby?",
-                d: "5h ago",
-                o: "15 offers",
+                u: "Lina",
+                t: "Hoping to find someone local who repairs vintage film cameras.",
+                d: "Example request",
               },
-            ].map((req, i) => (
+            ].map((req) => (
               <div
-                key={i}
-                className="group bg-white/5 border border-white/10 backdrop-blur-md p-6 lg:p-8 rounded-[3rem] flex items-start gap-6 transition-all hover:bg-white/10 hover:border-white/20 hover:-translate-y-2 duration-500 shadow-xl"
+                key={req.t}
+                className="group flex items-start gap-6 rounded-[3rem] border border-white/10 bg-white/5 p-6 shadow-xl backdrop-blur-md transition-all duration-500 hover:-translate-y-2 hover:border-white/20 hover:bg-white/10 lg:p-8"
               >
-                <div className="h-16 w-16 rounded-[2rem] bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center text-white font-display text-3xl shrink-0 shadow-inner">
+                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-[2rem] bg-gradient-to-br from-primary to-primary-glow font-display text-3xl text-white shadow-inner">
                   {req.u[0]}
                 </div>
                 <div className="flex-1">
-                  <div className="flex items-center justify-between mb-3">
+                  <div className="mb-3 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <span className="font-bold text-xl text-white/90">
+                      <span className="text-xl font-bold text-white/90">
                         {req.u}
                       </span>
-                      <span className="text-xs text-white/50 flex items-center gap-1">
+                      <span className="flex items-center gap-1 text-xs text-white/50">
                         <Clock className="h-3.5 w-3.5" /> {req.d}
                       </span>
                     </div>
-                    <span className="text-[10px] text-primary-soft uppercase font-bold tracking-widest bg-primary/20 border border-primary/30 px-3 py-1 rounded-full">
-                      {req.o}
+                    <span className="rounded-full border border-primary/30 bg-primary/20 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-primary-soft">
+                      Preview
                     </span>
                   </div>
-                  <p className="text-2xl lg:text-3xl text-white font-display leading-tight mb-6">
-                    "{req.t}"
+                  <p className="mb-4 text-2xl font-display leading-tight text-white lg:text-3xl">
+                    &quot;{req.t}&quot;
                   </p>
-                  <button className="flex items-center gap-2 text-sm font-bold text-primary-soft group-hover:gap-3 transition-all opacity-80 group-hover:opacity-100">
-                    Make an offer <ArrowRight className="h-4 w-4" />
-                  </button>
+                  <p className="flex items-center gap-2 text-sm font-bold text-primary-soft opacity-90">
+                    Replies will show here <ArrowRight className="h-4 w-4" />
+                  </p>
                 </div>
               </div>
             ))}
@@ -472,97 +536,93 @@ function Index() {
         </div>
       </section>
 
-      {/* SELLERS: THE OPPORTUNITY */}
       <section
         id="sellers"
-        className="py-24 lg:py-32 bg-[#FDFCFB] overflow-hidden relative"
+        className="relative overflow-hidden bg-[#FDFCFB] py-24 lg:py-32"
       >
-        <div className="mx-auto max-w-7xl px-6 lg:px-10 grid lg:grid-cols-2 gap-20 items-center">
+        <div className="mx-auto grid max-w-7xl items-center gap-20 px-6 lg:grid-cols-2 lg:px-10">
           <div className="relative order-2 lg:order-1">
-            <div className="absolute inset-0 bg-primary/10 blur-[120px] rounded-full" />
-            <div className="relative aspect-[4/5] lg:aspect-square rounded-[3rem] overflow-hidden shadow-elevated border-8 border-white">
+            <div className="absolute inset-0 rounded-full bg-primary/10 blur-[120px]" />
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[3rem] border-8 border-white shadow-elevated lg:aspect-square">
               <img
                 src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?auto=format&fit=crop&w=1200&q=80"
-                alt="Seller"
-                className="w-full h-full object-cover"
+                alt="Independent provider preview"
+                className="h-full w-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent" />
               <div className="absolute bottom-10 left-10 text-white">
-                <div className="text-4xl lg:text-5xl font-display mb-3">
-                  Sarah's Studio
+                <div className="mb-3 text-4xl font-display lg:text-5xl">
+                  Your shop, before the rush
                 </div>
-                <div className="flex items-center gap-2 text-sm font-bold opacity-90 uppercase tracking-widest bg-white/20 backdrop-blur-md px-4 py-2 rounded-full inline-flex">
+                <div className="inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 text-sm font-bold uppercase tracking-widest opacity-90 backdrop-blur-md">
                   <Star className="h-4 w-4 fill-primary text-primary" />
-                  Top Rated Neighborhood Maker
+                  Early provider access
                 </div>
               </div>
             </div>
           </div>
 
           <div className="order-1 lg:order-2">
-            <span className="text-primary font-bold uppercase tracking-[0.2em] text-xs">
-              Join the ecosystem
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
+              For providers
             </span>
-            <h2 className="font-display text-5xl md:text-6xl lg:text-7xl leading-tight mt-4 mb-8 text-ink">
-              Turn your local craft into a{" "}
-              <span className="text-primary italic">thriving business.</span>
+            <h2 className="mt-4 mb-8 font-display text-5xl leading-tight text-ink md:text-6xl lg:text-7xl">
+              Let local customers find you{" "}
+              <span className="text-primary italic">from the start.</span>
             </h2>
-            <p className="text-xl text-muted-foreground leading-relaxed mb-10">
-              Join thousands of providers being discovered every day. Create
-              your beautiful digital storefront in minutes and let customers
-              find you effortlessly.
+            <p className="mb-10 text-xl leading-relaxed text-muted-foreground">
+              If you offer a useful product or service, Provinear should help
+              more nearby customers see you early.
             </p>
-            <ul className="grid gap-5 mb-12">
+            <ul className="mb-12 grid gap-5">
               {[
-                "Zero technical skills required to start",
-                "Instant reach to your immediate neighborhood",
-                "Built-in secure escrow payments for peace of mind",
-                "Earn your Purchase & Fulfillment Scores",
+                "Get in before customer access opens wider",
+                "Show what you do without getting lost in clutter",
+                "Get updates made for providers",
+                "Choose optional escrow if you want the Provinear trust badge",
+                "Be part of the first group we bring in",
               ].map((point) => (
                 <li
                   key={point}
-                  className="flex items-center gap-4 text-ink font-bold text-lg bg-white p-4 rounded-2xl shadow-sm border border-border/50"
+                  className="flex items-center gap-4 rounded-2xl border border-border/50 bg-white p-4 text-lg font-bold text-ink shadow-sm"
                 >
-                  <CheckCircle2 className="h-6 w-6 text-primary shrink-0" />
+                  <CheckCircle2 className="h-6 w-6 shrink-0 text-primary" />
                   {point}
                 </li>
               ))}
             </ul>
-            <button className="h-16 px-10 rounded-full bg-ink text-white font-bold text-lg hover:bg-primary transition-all shadow-elevated active:scale-95">
-              Start selling today
+            <button
+              type="button"
+              onClick={() => setIsEarlyAccessOpen(true)}
+              className="inline-flex h-16 items-center rounded-full bg-ink px-10 text-lg font-bold text-white shadow-elevated transition-all hover:bg-primary"
+            >
+              Join as a provider
             </button>
           </div>
         </div>
       </section>
 
-      {/* FINAL CTA: THE CONVERSION */}
-      <section className="py-24 px-6 lg:px-10 bg-white">
-        <div className="mx-auto max-w-7xl rounded-[3rem] lg:rounded-[4rem] bg-ink p-12 lg:p-24 text-center text-white relative overflow-hidden shadow-[0_40px_100px_-20px_oklch(0.28_0.09_295_/_0.4)]">
+      <section className="bg-white px-6 py-24 lg:px-10">
+        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[3rem] bg-ink p-12 text-center text-white shadow-[0_40px_100px_-20px_oklch(0.28_0.09_295_/_0.4)] lg:rounded-[4rem] lg:p-24">
           <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay" />
-          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[radial-gradient(circle_at_top_right,var(--primary)_0%,transparent_60%)] opacity-50" />
-          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[radial-gradient(circle_at_bottom_left,var(--primary-glow)_0%,transparent_60%)] opacity-40" />
+          <div className="absolute top-0 right-0 h-[800px] w-[800px] bg-[radial-gradient(circle_at_top_right,var(--primary)_0%,transparent_60%)] opacity-50" />
+          <div className="absolute bottom-0 left-0 h-[600px] w-[600px] bg-[radial-gradient(circle_at_bottom_left,var(--primary-glow)_0%,transparent_60%)] opacity-40" />
 
           <div className="relative z-10">
-            <h2 className="font-display text-5xl md:text-7xl lg:text-8xl leading-[0.95] mb-8">
-              Commerce, <br /> finally connected.
+            <h2 className="mb-8 font-display text-5xl leading-[0.95] md:text-7xl lg:text-8xl">
+              Join before it <br /> opens wider.
             </h2>
-            <p className="text-xl lg:text-2xl text-white/80 leading-relaxed max-w-2xl mx-auto mb-14">
-              Join the movement of localized commerce. Find what you need,
-              support who you love, and grow where you live.
+            <p className="mx-auto mb-14 max-w-2xl text-xl leading-relaxed text-white/80 lg:text-2xl">
+              Provinear is opening soon. Join now if you want one of the
+              first invites.
             </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-5">
-              <button
-                onClick={() =>
-                  navigate({ to: "/search", search: { q: searchQuery } })
-                }
-                className="h-16 px-10 rounded-full bg-white text-ink font-bold text-lg shadow-elevated hover:scale-105 active:scale-95 transition-all"
-              >
-                Start exploring
-              </button>
-              <button className="h-16 px-10 rounded-full border-2 border-white/20 text-white font-bold text-lg hover:bg-white/10 active:scale-95 transition-all">
-                Download the app
-              </button>
-            </div>
+            <button
+              type="button"
+              onClick={() => setIsEarlyAccessOpen(true)}
+              className="inline-flex h-16 items-center rounded-full bg-white px-10 text-lg font-bold text-ink shadow-elevated transition-all hover:scale-105"
+            >
+              Join early access
+            </button>
           </div>
         </div>
       </section>

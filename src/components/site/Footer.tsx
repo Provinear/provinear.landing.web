@@ -17,11 +17,10 @@ export function Footer() {
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <Wordmark size="md" />
           <p className="text-sm text-muted-foreground max-w-md">
-            A localized commerce ecosystem. Building infrastructure for
-            discovery between people and the providers around them.
+            Find local providers, products, and services nearby.
           </p>
           <p className="text-xs text-muted-foreground/80">
-            © {new Date().getFullYear()} Provinear. Coming soon.
+            © {new Date().getFullYear()} Provinear.
           </p>
         </div>
       </div>
