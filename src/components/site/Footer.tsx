@@ -14,14 +14,16 @@ export function Footer() {
       </div>
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-10 pt-16 pb-32 md:pb-40">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-          <Wordmark size="md" />
-          <p className="text-sm text-muted-foreground max-w-md">
-            Find local providers, products, and services nearby.
+        <div className="grid gap-6 md:grid-cols-3 items-center text-center md:text-left">
+          <div className="flex justify-center md:justify-start">
+            <Wordmark size="md" />
+          </div>
+          <p className="text-sm text-muted-foreground text-center max-w-md mx-auto">
+            Commerce, closer to you. <br className="hidden sm:inline" /> An ecosystem for customers and providers.
           </p>
-          <p className="text-xs text-muted-foreground/80">
+          <div className="flex justify-center md:justify-end text-xs text-muted-foreground/80">
             © {new Date().getFullYear()} Provinear.
-          </p>
+          </div>
         </div>
       </div>
     </footer>

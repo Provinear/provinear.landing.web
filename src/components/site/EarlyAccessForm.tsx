@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,7 +14,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
-  getEarlyAccessWebhookUrl,
   submitEarlyAccess,
   type EarlyAccessIntent,
 } from "@/lib/early-access";
@@ -45,34 +44,77 @@ const intentOptions: Array<{
   },
 ];
 
-export function EarlyAccessForm() {
+type EarlyAccessFormProps = {
+  defaultIntent?: EarlyAccessIntent;
+};
+
+export function EarlyAccessForm({ defaultIntent = "discover" }: EarlyAccessFormProps) {
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [submitState, setSubmitState] = useState<{
     kind: "idle" | "success" | "error";
     message?: string;
   }>({ kind: "idle" });
 
+  useEffect(() => {
+    // Dynamic load of Cloudflare Turnstile script
+    const script = document.createElement("script");
+    script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js";
+    script.async = true;
+    script.defer = true;
+    document.body.appendChild(script);
+
+    // Set callback on global window object
+    (window as any).onTurnstileSuccess = (token: string) => {
+      setCaptchaToken(token);
+    };
+
+    return () => {
+      document.body.removeChild(script);
+      delete (window as any).onTurnstileSuccess;
+    };
+  }, []);
+
   const form = useForm<EarlyAccessFormValues>({
     resolver: zodResolver(earlyAccessSchema),
     defaultValues: {
       email: "",
-      intent: "discover",
+      intent: defaultIntent,
     },
   });
 
+  useEffect(() => {
+    form.setValue("intent", defaultIntent);
+  }, [defaultIntent, form]);
+
   const onSubmit = form.handleSubmit(async (values) => {
+    if (!captchaToken) {
+      setSubmitState({
+        kind: "error",
+        message: "Please complete the CAPTCHA check.",
+      });
+      return;
+    }
+
     setSubmitState({ kind: "idle" });
 
     try {
       await submitEarlyAccess({
-        webhookUrl: getEarlyAccessWebhookUrl(import.meta.env),
-        email: values.email,
-        intent: values.intent,
+        data: {
+          email: values.email,
+          intent: values.intent,
+          captchaToken: captchaToken,
+        },
       });
 
       form.reset({
         email: "",
         intent: values.intent,
       });
+      setCaptchaToken(null);
+      if (typeof (window as any).turnstile !== "undefined") {
+        (window as any).turnstile.reset();
+      }
+
       setSubmitState({
         kind: "success",
         message:
@@ -81,6 +123,11 @@ export function EarlyAccessForm() {
             : "You're on the list. We'll let you know when early access opens.",
       });
     } catch (error) {
+      if (typeof (window as any).turnstile !== "undefined") {
+        (window as any).turnstile.reset();
+      }
+      setCaptchaToken(null);
+
       setSubmitState({
         kind: "error",
         message:
@@ -159,9 +206,21 @@ export function EarlyAccessForm() {
           )}
         />
 
+        {/* Cloudflare Turnstile CAPTCHA container */}
+        <div className="flex justify-center py-2">
+          <div
+            className="cf-turnstile"
+            data-sitekey={
+              import.meta.env.VITE_TURNSTILE_SITEKEY ||
+              "1x00000000000000000000AA"
+            }
+            data-callback="onTurnstileSuccess"
+          />
+        </div>
+
         <button
           type="submit"
-          disabled={form.formState.isSubmitting}
+          disabled={form.formState.isSubmitting || !captchaToken}
           className="flex h-14 w-full items-center justify-center rounded-full bg-primary px-6 text-base font-bold text-primary-foreground shadow-lg transition-all hover:bg-ink disabled:cursor-not-allowed disabled:opacity-70"
         >
           {form.formState.isSubmitting ? "Saving..." : "Join early access"}

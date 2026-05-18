@@ -6,15 +6,18 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { type EarlyAccessIntent } from "@/lib/early-access";
 
 type EarlyAccessModalProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  defaultIntent?: EarlyAccessIntent;
 };
 
 export function EarlyAccessModal({
   open,
   onOpenChange,
+  defaultIntent,
 }: EarlyAccessModalProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -32,7 +35,7 @@ export function EarlyAccessModal({
           </DialogDescription>
         </DialogHeader>
 
-        <EarlyAccessForm />
+        <EarlyAccessForm defaultIntent={defaultIntent} />
       </DialogContent>
     </Dialog>
   );
